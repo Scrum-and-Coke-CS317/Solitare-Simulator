@@ -50,7 +50,7 @@ public class Card
 	{
 		return this.suit;
 	}
-	
+	// hi
 	/**
 	 * set card value
 	 * 
