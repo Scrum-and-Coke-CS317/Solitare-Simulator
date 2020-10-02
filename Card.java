@@ -14,7 +14,7 @@ public class Card
 	/**
 	 * Make null card
 	 */
-	public card()
+	public Card()
 	{
 		this.suit = "";
 		this.value = 0;
@@ -26,7 +26,7 @@ public class Card
 	 * @param i value of vard
 	 * @param s suit converted to lowercase to make things easy
 	 */
-	public card(int i, String s)
+	public Card(int i, String s)
 	{
 		this.suit = s.toLowerCase();
 		this.value = i;
