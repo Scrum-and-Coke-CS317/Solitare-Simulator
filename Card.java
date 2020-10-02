@@ -1,7 +1,6 @@
 /**
  * card class
- * hello
- * test
+ * 
  * @author scrum-and-coke
  */
 public class Card
@@ -51,7 +50,7 @@ public class Card
 	{
 		return this.suit;
 	}
-//hi
+	
 	/**
 	 * set card value
 	 * 
