@@ -16,7 +16,7 @@ public class CardDeck
 	
 	public void draw()
 	{
-		
+		remainingCards--;
 	}
 	
 	public int getRemainingCards()
@@ -31,6 +31,6 @@ public class CardDeck
 	
 	public void initialize()
 	{
-		
+		remainingCards = 52;
 	}
 }
