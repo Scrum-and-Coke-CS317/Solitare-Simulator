@@ -23,7 +23,7 @@ public class Card
 	/**
 	 * Make card with attributes
 	 * 
-	 * @param i value of vard
+	 * @param i value of Card
 	 * @param s suit converted to lowercase to make things easy
 	 */
 	public Card(int i, String s)
@@ -51,7 +51,7 @@ public class Card
 	{
 		return this.suit;
 	}
-
+//hi
 	/**
 	 * set card value
 	 * 
