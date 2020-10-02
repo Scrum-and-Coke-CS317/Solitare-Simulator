@@ -1,6 +1,7 @@
 /**
  * card class
  * hello
+ * test
  * @author scrum-and-coke
  */
 public class Card
