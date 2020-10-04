@@ -9,38 +9,45 @@ import java.util.*;
 
 public class CardDeck {
 	
-	private int remainingCards;
 	public ArrayList<Card> cards = new ArrayList<Card>();
-	public ArrayList<Card> drawnCards = new ArrayList<Card>();
+	public Queue<Card> deck = new LinkedList<Card>();
 	
 	String[] suits = {"spade", "heart", "diamond", "club"};
 	
 	
-	public void shuffle(){
-		
+	public Card draw() throws Exception{
+		if (deck == null)
+			throw new SolitareException("deck with 0 cards");
+		return deck.poll();
 	}
 	
-	public void draw(){
-		remainingCards--;
-		int randomCard = random.nextInt(cards.size());
-		cards.get(randomCard);
-	}
-	
-	public ArrayList<Card> getRemainingCards(){
-		return cards;
+	public Queue<Card> getRemainingCards(){
+		return deck;
 	}
 	
 	public void discard(Card c){
-		//send to back
+		deck.add(c);
+	}
+	
+	public int getDeckSize(){
+		return deck.size();
 	}
 	
 	public void initialize(){
-		remainingCards = 52;
+		deck.clear();
 		for (String suit:suits) {
 			for (int i = 1 ; i < 14 ; i++) {
 				Card c = new Card(i, suit);
 				cards.add(c);
 			}
+		}
+		Random r = new Random();
+		for (int i = 0 ; i < 52 ; i++)
+		{
+			int randomInt = r.nextInt(cards.size());	
+			Card randomCard = cards.get(randomInt);
+			deck.add(randomCard);
+			cards.remove(randomInt);
 		}
 
 		
@@ -48,7 +55,7 @@ public class CardDeck {
 	}
 	
 	public void printDeck() {
-		for (Card card:cards) {
+		for (Card card:deck) {
 			System.out.println("Suit: "+card.getSuit() + " Number: "+card.getValue());
 		}
 	}
