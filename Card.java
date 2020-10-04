@@ -33,6 +33,7 @@ public class Card
 	
 	/**
 	 * get value of card
+	 * @param  
 	 * 
 	 * @return value of card
 	 */
