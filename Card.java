@@ -1,7 +1,6 @@
 /**
  * card class
- * hello
- * test
+ * 
  * @author scrum-and-coke
  */
 public class Card
@@ -51,7 +50,8 @@ public class Card
 	{
 		return this.suit;
 	}
-//hi
+	
+	
 	/**
 	 * set card value
 	 * 
@@ -84,7 +84,7 @@ public class Card
 		else if (this.suit.equals("club") || this.suit.equals("spade"))
 			return "black";
 		else
-			return "error";
+			return "error!";
 	}
 	
 }
