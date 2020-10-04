@@ -9,14 +9,15 @@ import java.util.*;
 
 public class CardDeck {
 	
-	private int remainingCards;
 	public ArrayList<Card> cards = new ArrayList<Card>();
 	public Queue<Card> deck = new LinkedList<Card>();
 	
 	String[] suits = {"spade", "heart", "diamond", "club"};
 	
 	
-	public Card draw(){
+	public Card draw() throws Exception{
+		if (deck == null)
+			throw new SolitareException("deck with 0 cards");
 		return deck.poll();
 	}
 	
@@ -33,7 +34,6 @@ public class CardDeck {
 	}
 	
 	public void initialize(){
-		remainingCards = 52;
 		deck.clear();
 		for (String suit:suits) {
 			for (int i = 1 ; i < 14 ; i++) {

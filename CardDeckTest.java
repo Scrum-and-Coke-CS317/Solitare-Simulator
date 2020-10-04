@@ -14,7 +14,7 @@ class CardDeckTest {
 	}
 
 	@Test
-	void testDraw() {
+	void testDraw() throws Exception {
 		for (int i = 0 ; i < 52 ; i++) {
 			assertTrue(testDeck.getDeckSize() == 52-i);	
 			testCard = testDeck.draw();
@@ -28,7 +28,7 @@ class CardDeckTest {
 	}
 
 	@Test
-	void testGetRemainingCards() {
+	void testGetRemainingCards() throws Exception {
 		//doesn't contain drawn cards
 		testCard = testDeck.draw();
 		assertFalse(testDeck.getRemainingCards().contains(testCard));
@@ -37,7 +37,7 @@ class CardDeckTest {
 	}
 
 	@Test
-	void testDiscard() {
+	void testDiscard() throws Exception {
 		//discarded card goes back into deck
 		testCard = testDeck.draw();
 		assertFalse(testDeck.getRemainingCards().contains(testCard));
@@ -46,7 +46,7 @@ class CardDeckTest {
 	}
 
 	@Test
-	void testGetDeckSize() {
+	void testGetDeckSize() throws Exception {
 		assertTrue(testDeck.getDeckSize() == 52);	
 		testCard = testDeck.draw();
 		assertTrue(testDeck.getDeckSize() == 51);	
