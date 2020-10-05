@@ -16,8 +16,8 @@ public class CardDeck {
 	
 	
 	public Card draw() throws Exception{
-		if (deck == null)
-			throw new SolitareException("deck with 0 cards");
+		if (deck.isEmpty())
+			throw new SolitareException("deck isEmpty with 0 cards -- is it initialized?");
 		return deck.poll();
 	}
 	
@@ -59,4 +59,6 @@ public class CardDeck {
 			System.out.println("Suit: "+card.getSuit() + " Number: "+card.getValue());
 		}
 	}
+	
+
 }
