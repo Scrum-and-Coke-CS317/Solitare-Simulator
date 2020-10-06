@@ -23,16 +23,6 @@ public class Card
 	}
 	
 	/**
-	 * put face down or up
-	 */
-	public void setHidden(boolean b)
-	{
-		this.hidden = b;
-	}
-	
-	
-	
-	/**
 	 * Make card with attributes
 	 * 
 	 * @param i value of Card
@@ -99,6 +89,26 @@ public class Card
 			return "black";
 		else
 			return "error!";
+	}
+	
+	/**
+	 * put face down or up
+	 * 
+	 * @param b new value
+	 */
+	public void setHidden(boolean b)
+	{
+		this.hidden = b;
+	}
+	
+	/**
+	 * check if card is face down
+	 * 
+	 * @return hidden status
+	 */
+	public boolean getHidden()
+	{
+		return this.hidden;
 	}
 	
 	/**

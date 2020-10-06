@@ -37,6 +37,8 @@ public class driver
 		}
 		print(tableau);
 		print(foundation);
+		
+		
  	}
  
  	/**
