@@ -12,9 +12,8 @@ public class driver
 	
  public static void main(String[] args) throws Exception 
  	{
-	 	//put in the cards
+	 	//initialize deck
 		cardDeck.initialize();
-		
 		//initialize foundation
 		for(int i = 0; i < 4; i++)
 		{
@@ -22,22 +21,36 @@ public class driver
 			foundation.add(s);
 		}
 		
+		//make tableau 
+		//ArrayList of Stack<Card>
 		//say a prayer that this works
 		for(int i = 0; i < 7; i++)
 		{
 			Stack<Card> s = new Stack<Card>();
 			tableau.add(s);
+			//number of cards per stack
 			for (int ii = 0; ii < i+1; ii++)
 			{
 				Card c = cardDeck.draw();
 				if (ii != i)
-					c.setHidden(true);
+					c.setHidden(true); //only last card shows
 				tableau.get(i).add(c);
 			}
 		}
+		
+		//test here
 		print(tableau);
 		print(foundation);
 		
+		//current card from deck
+		//fail if happens three times
+		Card current = cardDeck.draw();
+		
+		//check if can be added to a stack
+		for(int i = 0; i < tableau.size(); i++)
+		{
+			
+		}
 		
  	}
  
