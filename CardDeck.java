@@ -15,9 +15,10 @@ public class CardDeck {
 	String[] suits = {"spade", "heart", "diamond", "club"};
 	
 	
-	public Card draw() throws Exception{
+	public Card draw() throws Exception
+	{
 		if (deck.isEmpty())
-			throw new SolitareException("deck isEmpty with 0 cards -- is it initialized?");
+			throw new Exception("deck isEmpty with 0 cards -- is it initialized?");
 		return deck.poll();
 	}
 	

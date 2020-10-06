@@ -88,4 +88,21 @@ public class Card
 			return "error!";
 	}
 	
+	/**
+	 * toString to print card
+	 */
+	public String toString()
+	{
+		if (this.value == 1)
+			return "A " + this.suit;
+		else if (this.value == 11)
+			return "J " + this.suit;
+		else if (this.value == 12)
+			return "Q " + this.suit;
+		if (this.value == 13)
+			return "K " + this.suit;
+		else
+			return this.value + " " + this.suit;
+	}
+	
 }
