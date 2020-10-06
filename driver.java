@@ -5,12 +5,13 @@ public class driver
 {
  public static void main(String[] args) throws Exception 
  	{
-		CardDeck carddeck = new CardDeck();
-		carddeck.initialize();
+	 //make deck to draw from
+		CardDeck cardDeck = new CardDeck();
+		cardDeck.initialize();
+		
 		
 		//make tableau
 		ArrayList<Stack<Card>> tableau = new ArrayList<Stack<Card>>(7);
-		
 		//say a prayer that this works
 		for(int i = 0; i < 7; i++)
 		{
@@ -18,10 +19,12 @@ public class driver
 			tableau.add(s);
 			for (int ii = 0; ii < i+1; ii++)
 			{
-				tableau.get(i).add(carddeck.draw());
+				Card c = cardDeck.draw();
+				if (ii != i)
+					c.hide();
+				tableau.get(i).add(c);
 			}
 		}
-		
 		//an attempt to print what's in the tableau
 		//if this works, that's proof God exists
 		for(int i = 0; i < 7; i++)

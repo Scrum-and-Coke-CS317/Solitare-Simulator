@@ -7,8 +7,10 @@ public class Card
 {
 	//suit of card as string - all lowercase for consistency 
 	private String suit;
-	//vlaue of card (Jack 11, Queen 12, King 13)
+	//value of card (Jack 11, Queen 12, King 13)
 	private int value;
+	//face up or face down
+	private boolean hidden;
 	
 	/**
 	 * Make null card
@@ -17,6 +19,12 @@ public class Card
 	{
 		this.suit = "";
 		this.value = 0;
+		this.hidden = false;
+	}
+	
+	public void hide()
+	{
+		this.hidden = true;
 	}
 	
 	/**
@@ -90,19 +98,29 @@ public class Card
 	
 	/**
 	 * toString to print card
+	 * 
+	 * @return value and suit of card
 	 */
 	public String toString()
 	{
+		String s = "";
+		
+		//put dash in front if card face down
+		if (this.hidden == true)
+			s += "-";	
+		
 		if (this.value == 1)
-			return "A " + this.suit;
+			s += "A " + this.suit;
 		else if (this.value == 11)
-			return "J " + this.suit;
+			s += "J " + this.suit;
 		else if (this.value == 12)
-			return "Q " + this.suit;
-		if (this.value == 13)
-			return "K " + this.suit;
+			s += "Q " + this.suit;
+		else if (this.value == 13)
+			s += "K " + this.suit;
 		else
-			return this.value + " " + this.suit;
+			s += this.value + " " + this.suit;
+		
+		return s;
 	}
 	
 }
