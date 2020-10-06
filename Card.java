@@ -22,10 +22,15 @@ public class Card
 		this.hidden = false;
 	}
 	
-	public void hide()
+	/**
+	 * put face down or up
+	 */
+	public void setHidden(boolean b)
 	{
-		this.hidden = true;
+		this.hidden = b;
 	}
+	
+	
 	
 	/**
 	 * Make card with attributes
