@@ -48,7 +48,7 @@ public class driver
 		print(tableau);
 		print(foundation);
 		
-		for (int i = 0; i < 10; i++) //test with 10 cards
+		for (int i = 0; i < 30; i++) 						//test with 30 cards
 		{
 			//current card from deck and play
 			Card current = cardDeck.draw();
@@ -56,6 +56,7 @@ public class driver
 			//beta feature
 			//play cards on tableau already
 			//only works on bottom card
+			
 			//playTableauCards();							//<---- this breaks things 1/2 the time for some reason
 			
 			if (play(current, false) == false)				//Bug: doesn't switch off between colors
@@ -119,7 +120,7 @@ public class driver
  				tableau.get(i).add(c);
  				return true;
  			}
- 			else if (above.getValue() - 1 == c.getValue()  &&  ! above.getSuit().equals(c.getColor())) //I hope this works
+ 			else if (above.getValue() - 1 == c.getValue()  &&  !above.getColor().equals(c.getColor())) //I hope this works
  			{
  				tableau.get(i).add(c);
  				return true;
