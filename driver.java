@@ -9,6 +9,12 @@ public class driver
 	private static ArrayList<Stack<Card>> tableau = new ArrayList<Stack<Card>>(7);
 	//make foundation
 	private static ArrayList<Stack<Card>> foundation = new ArrayList<Stack<Card>>(4);
+	//count cards in foundation
+	private static int clubCount = 1;
+	private static int diamondCount = 1;
+	private static int heartCount = 1;
+	private static int spadeCount = 1;
+	
 	
  public static void main(String[] args) throws Exception 
  	{
@@ -42,16 +48,86 @@ public class driver
 		print(tableau);
 		print(foundation);
 		
-		//current card from deck
-		//fail if happens three times
-		Card current = cardDeck.draw();
-		
-		//check if can be added to a stack
-		for(int i = 0; i < tableau.size(); i++)
+		for (int i = 0; i < 10; i++) //test with 10 cards
 		{
+			//current card from deck and play
+			Card current = cardDeck.draw();
+						
+			//beta feature
+			//play cards on tableau already
+			//only works on bottom card
+			//playTableauCards();							//<---- this breaks things 1/2 the time for some reason
 			
+			if (play(current, false) == false)				//Bug: doesn't switch off between colors
+				cardDeck.discard(current);
+			
+			//next:
+	 		//make sure it only goes through deck three times
+			//may need a second card deck :/
+					
 		}
 		
+		//show results
+		//Good luck figuring this part out
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println("Done-----");
+		print(tableau);
+		print(foundation);
+		
+ 	}
+ 
+ 	/**
+ 	 * Plays card if possible or discards
+ 	 * 
+ 	 * @param c card to play
+ 	 */
+ 	private static boolean play(Card c, boolean fromTableau)
+ 	{
+ 		if (fromTableau)
+ 			System.out.println("   Play Card from Tableau: " + c.toString());
+ 		else
+ 			System.out.println("   Play Card: " + c.toString());
+ 		
+ 		//check if can be added to a foundation
+ 		if(toFoundation(c))
+ 			return true;
+ 		//check if can be added to a stack
+ 		else if(toTableau(c))
+ 			return true;
+ 		else
+ 			return false;
+ 	}
+ 	
+ 	
+ 	/**
+ 	 * try to add card to tableau
+ 	 * 
+ 	 * @param c card
+ 	 * @return true or false if works
+ 	 */
+ 	private static boolean toTableau(Card c)
+ 	{
+ 		Card above;
+ 		for(int i = 0; i < tableau.size(); i++)
+ 		{
+ 			above = tableau.get(i).peek(); //this might break things if it's empty lol
+ 			
+ 			if (tableau.get(i).isEmpty() && c.getValue() == 13)
+ 			{
+ 				tableau.get(i).add(c);
+ 				return true;
+ 			}
+ 			else if (above.getValue() - 1 == c.getValue()  &&  ! above.getSuit().equals(c.getColor())) //I hope this works
+ 			{
+ 				tableau.get(i).add(c);
+ 				return true;
+ 			}
+ 			
+ 		}
+ 		
+ 		return false;
  	}
  
  	/**
@@ -65,22 +141,73 @@ public class driver
  	 * if this gives a bunch of problems, make sure this card value > previous card value
  	 * 
  	 * @param c card
+ 	 * @return true or false if works
  	 */
- 	public void toFoundation(Card c)
+ 	private static boolean toFoundation(Card c)
  	{
- 		if (c.getSuit().equals("club"))
+ 		if (c.getSuit().equals("club") && clubCount == c.getValue())
+ 		{
  			foundation.get(0).add(c);
- 		else if (c.getSuit().equals("diamond"))
+ 			clubCount++;
+ 			return true;
+ 		}
+ 		else if (c.getSuit().equals("diamond") && diamondCount == c.getValue())
+ 		{
  			foundation.get(1).add(c);
- 		else if (c.getSuit().equals("heart"))
+ 			diamondCount++;
+ 			return true;
+ 		}
+ 		else if (c.getSuit().equals("heart") && heartCount == c.getValue())
+ 		{
  			foundation.get(2).add(c);
- 		else if (c.getSuit().equals("spade"))
+ 			heartCount++;
+ 			return true;
+ 		}
+ 		else if (c.getSuit().equals("spade") && spadeCount == c.getValue())
+ 		{
  			foundation.get(3).add(c);
+ 			spadeCount++;
+ 			return true;
+ 		}
  		else
- 			System.out.println("Error adding to foundation");
+ 		{
+ 			return false;
+ 		}
  	}
  	
- 	public static void print(ArrayList<Stack<Card>> list)
+ 	/**
+ 	 * try to play cards down on tableau and unhide card under
+ 	 * 
+ 	 */
+ 	private static void playTableauCards()
+ 	{
+ 		for(int i = 0; i < tableau.size(); i++)
+		{
+ 			if (! tableau.get(i).isEmpty())
+	 			{
+	 				Card c = tableau.get(i).peek();
+	 				if(play(c,true))
+	 				{
+	 					tableau.get(i).pop();
+	 					if (! tableau.get(i).isEmpty())
+	 						tableau.get(i).lastElement().setHidden(false);
+	 						//tableau.get(i).peek().setHidden(false);
+	 						
+	 				}
+	 			}
+ 			//to test
+ 			//print(tableau);
+			//print(foundation);
+		}
+ 	}
+ 	
+ 	
+ 	/**
+ 	 * Print big things
+ 	 * 
+ 	 * @param list tableau
+ 	 */
+ 	private static void print(ArrayList<Stack<Card>> list)
  	{
  		//an attempt to print what's in the tableau
 		//if this works, that's proof God exists
