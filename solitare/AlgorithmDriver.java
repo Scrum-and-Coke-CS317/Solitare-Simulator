@@ -64,6 +64,7 @@ public class AlgorithmDriver {
 			}
 			//reset for new game
 			gameEnd = false;
+			stuckDeckCounter = 0;
 			clubCount = 1;
 			diamondCount = 1;
 			heartCount = 1;
@@ -117,20 +118,8 @@ public class AlgorithmDriver {
 	 * @return  
 	 */
 	public static int tableauToFoundation() {
-//		for(int i = 0; i < 7; i++) { //loop tableaus
-//			if(tableau.get(i).size() != 0) {
-//				for(int j = 0; j < 4; j++) { //loop foundations
-//					if(foundation.get(j).get(foundation.get(j).size()-1).getSuit().equals(
-//							tableau.get(i).get(tableau.get(i).size()-1).getSuit()) &&
-//							foundation.get(j).get(foundation.get(j).size()-1).getValue()+1 ==
-//							tableau.get(i).get(tableau.get(i).size()-1).getValue()) {
-//						//move card from tableau to foundation
-//						foundation.get(j).add(tableau.get(i).get(tableau.get(i).size()-1));
-//						tableau.get(i).remove(tableau.get(i).size()-1);
-//					}
-//				}
-//			}
-//		}
+		
+		//if successful reset stuckDeckCounter
 	return 2;
 }
 
@@ -157,11 +146,25 @@ public class AlgorithmDriver {
 	/**
 	 * 
 	 * @return  
+	 * @throws Exception 
 	 */
-	public static int drawCard() {
-		return 5;
-		// TODO Auto-generated method stub
+	public static int drawCard() throws Exception {
 
+		if(cardDeck.getDeckSize() == 0 && wasteDeck.getDeckSize() == 0) { //if both piles empty
+			stuckDeckCounter++;//add to loss count
+			return 1;
+		}
+		else if(cardDeck.getDeckSize() == 0 && wasteDeck.getDeckSize() != 0) { //if draw deck is empty
+			stuckDeckCounter++;//add to loss count
+			//take waste pile and loop it into the cardDeck
+			for(int i = 0; i < wasteDeck.getDeckSize(); i++) {
+				cardDeck.discard(wasteDeck.draw());
+			}
+		}
+		//move card to top of waste pile
+		Card c = cardDeck.draw();
+		wasteDeck.discard(c);		
+		return 5;		
 	}
 
 	/**
@@ -171,7 +174,7 @@ public class AlgorithmDriver {
 	public static int wasteToFoundation() {
 		return 6;
 		// TODO Auto-generated method stub
-
+		//if successful reset stuckDeckCounter to 0
 	}
 
 	/**
@@ -181,7 +184,7 @@ public class AlgorithmDriver {
 	public static int wasteToTableau() {
 		return 1;
 		// TODO Auto-generated method stub
-
+		//if successful reset stuckDeckCounter to 0
 	}
 
 	/**
@@ -197,7 +200,7 @@ public class AlgorithmDriver {
 	 */
 	public static void printResults() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	///////////////////////////////////////////Helper Methods/////////////////////////////////////////////////////

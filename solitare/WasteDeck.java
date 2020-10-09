@@ -31,6 +31,10 @@ public class WasteDeck {
 	public Queue<Card> getRemainingCards(){
 		return deck;
 	}
+	 
+	public void discard(Card c){
+		deck.add(c);
+	}
 	
 	public int getDeckSize(){
 		return deck.size();
