@@ -24,7 +24,7 @@ public class WasteDeck
 	{
 		if (deck.isEmpty())
 			return null;
-		return deck.pop();
+		return deck.peek();
 	}
 	 
 	public void discard(Card c)
@@ -34,19 +34,21 @@ public class WasteDeck
 	
 	public int getDeckSize()
 	{
-		return deck.size();
+		return deck.size(); 
 	}
 	
 	public CardDeck reset()
 	{
+		this.clear();
+		
 		CardDeck cd = new CardDeck();
 		
 		ArrayList<Card> temp = new ArrayList<Card>();
-		for(Card c:deck)	//reverse order for queue, right?
+		for(Card c:deck)	//reverse order for queue
 		{
 			temp.add(c);
 		}
-		for(int i = temp.size(); i > 0; i--)
+		for(int i = temp.size() -1 ; i > 0; i--)
 		{
 			cd.add(temp.get(i));
 		}
