@@ -1,4 +1,4 @@
-package solitare;
+package Simulation;
 
 /**
  * card deck class
@@ -26,10 +26,6 @@ public class CardDeck {
 	
 	public Queue<Card> getRemainingCards(){
 		return deck;
-	}
-	
-	public void discard(Card c){
-		deck.add(c);
 	}
 	
 	public int getDeckSize(){

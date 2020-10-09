@@ -1,4 +1,4 @@
-package solitare;
+package Simulation;
 
 import java.util.ArrayList;
 import java.util.Stack;

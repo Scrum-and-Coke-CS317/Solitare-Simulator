@@ -1,3 +1,4 @@
+package Simulation;
 public class SolitareException extends Exception {
 
   /**
