@@ -2,7 +2,7 @@ package Solitare;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class driver 
+public class driver
 {
 	//make deck to draw from
 	private static CardDeck cardDeck = new CardDeck();
@@ -15,9 +15,9 @@ public class driver
 	private static int diamondCount = 1;
 	private static int heartCount = 1;
 	private static int spadeCount = 1;
-	
-	
- public static void main(String[] args) throws Exception 
+
+
+ public static void main(String[] args) throws Exception
  	{
 	 	//initialize deck
 		cardDeck.initialize();
@@ -27,8 +27,8 @@ public class driver
 			Stack<Card> s = new Stack<Card>();
 			foundation.add(s);
 		}
-		
-		//make tableau 
+
+		//make tableau
 		//ArrayList of Stack<Card>
 		//say a prayer that this works
 		for(int i = 0; i < 7; i++)
@@ -44,31 +44,34 @@ public class driver
 				tableau.get(i).add(c);
 			}
 		}
-		
+
 		//test here
+		System.out.println("Preconditions:");
+		System.out.println("Tableau Setup:");
 		print(tableau);
+		System.out.println("Foundation Setup:");
 		print(foundation);
-		
+
 		for (int i = 0; i < 30; i++) 						//test with 30 cards
 		{
 			//current card from deck and play
 			Card current = cardDeck.draw();
-						
+
 			//beta feature
 			//play cards on tableau already
 			//only works on bottom card
-			
+
 			//playTableauCards();							//<---- this breaks things 1/2 the time for some reason
-			
+
 			if (play(current, false) == false)				//Bug: doesn't switch off between colors
 				cardDeck.discard(current);
-			
+
 			//next:
 	 		//make sure it only goes through deck three times
 			//may need a second card deck :/
-					
+
 		}
-		
+
 		//show results
 		//Good luck figuring this part out
 		System.out.println();
@@ -77,12 +80,12 @@ public class driver
 		System.out.println("Done-----");
 		print(tableau);
 		print(foundation);
-		
+
  	}
- 
+
  	/**
  	 * Plays card if possible or discards
- 	 * 
+ 	 *
  	 * @param c card to play
  	 */
  	private static boolean play(Card c, boolean fromTableau)
@@ -91,7 +94,7 @@ public class driver
  			System.out.println("   Play Card from Tableau: " + c.toString());
  		else
  			System.out.println("   Play Card: " + c.toString());
- 		
+
  		//check if can be added to a foundation
  		if(toFoundation(c))
  			return true;
@@ -101,11 +104,11 @@ public class driver
  		else
  			return false;
  	}
- 	
- 	
+
+
  	/**
  	 * try to add card to tableau
- 	 * 
+ 	 *
  	 * @param c card
  	 * @return true or false if works
  	 */
@@ -115,7 +118,7 @@ public class driver
  		for(int i = 0; i < tableau.size(); i++)
  		{
  			above = tableau.get(i).peek(); //this might break things if it's empty lol
- 			
+
  			if (tableau.get(i).isEmpty() && c.getValue() == 13)
  			{
  				tableau.get(i).add(c);
@@ -126,22 +129,22 @@ public class driver
  				tableau.get(i).add(c);
  				return true;
  			}
- 			
+
  		}
- 		
+
  		return false;
  	}
- 
+
  	/**
  	 * adds card to foundation
- 	 * 
+ 	 *
  	 * 0 clubs
  	 * 1 diamonds
  	 * 2 hearts
  	 * 3 spades
- 	 * 
+ 	 *
  	 * if this gives a bunch of problems, make sure this card value > previous card value
- 	 * 
+ 	 *
  	 * @param c card
  	 * @return true or false if works
  	 */
@@ -176,10 +179,10 @@ public class driver
  			return false;
  		}
  	}
- 	
+
  	/**
  	 * try to play cards down on tableau and unhide card under
- 	 * 
+ 	 *
  	 */
  	private static void playTableauCards()
  	{
@@ -194,7 +197,7 @@ public class driver
 	 					if (! tableau.get(i).isEmpty())
 	 						tableau.get(i).lastElement().setHidden(false);
 	 						//tableau.get(i).peek().setHidden(false);
-	 						
+
 	 				}
 	 			}
  			//to test
@@ -202,11 +205,11 @@ public class driver
 			//print(foundation);
 		}
  	}
- 	
- 	
+
+
  	/**
  	 * Print big things
- 	 * 
+ 	 *
  	 * @param list tableau
  	 */
  	private static void print(ArrayList<Stack<Card>> list)
@@ -216,7 +219,7 @@ public class driver
 		for(int i = 0; i < list.size(); i++)
 		{
 			Stack<Card> s = list.get(i);
-			System.out.println("Row " + i + ": ");
+			System.out.println("Pile " + (i + 1) + ": ");
 			for (Card c : s)
 			{
 				System.out.println(c.toString());
