@@ -49,17 +49,17 @@ public class AlgorithmDriver {
 			//each game ends when stuckDeckCounter increments to 3 or all cards in the tableau are not hidden
 			while(gameEnd == false) {
 				if (gameStep == 1) {
-					tableauToFoundation(); //step 1: sends to step 2
+					gameStep = tableauToFoundation(); //step 1: sends to step 2
 				} else if (gameStep == 2) { 
-					unhideTableau(); //step 2: sends to step 3
+					gameStep = unhideTableau(); //step 2: sends to step 3
 				} else if (gameStep == 3) {
-					checkWaste(); //step 3: sends to step 4 if it doesn't have cards, step 5 if it does
+					gameStep = checkWaste(); //step 3: sends to step 4 if it doesn't have cards, step 5 if it does
 				} else if (gameStep == 4) {
-					drawCard(); //step 4: sends to step 5, if empty and waste empty send to step 1
+					gameStep = drawCard(); //step 4: sends to step 5, if empty and waste empty send to step 1
 				} else if (gameStep == 5) {
-					wasteToFoundation(); //step 5: sends to step 6
+					gameStep = wasteToFoundation(); //step 5: sends to step 6
 				} else if (gameStep == 6) {
-					wasteToTableau(); //step 6: sends to step 1
+					gameStep = wasteToTableau(); //step 6: sends to step 1
 				}
 			}
 			//reset for new game
