@@ -1,4 +1,5 @@
-package Solitare;
+package solitare;
+
 /**
  * card deck class
  * 

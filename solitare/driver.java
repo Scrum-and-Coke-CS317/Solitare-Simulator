@@ -1,4 +1,5 @@
-package Solitare;
+package solitare;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -50,15 +51,15 @@ public class driver
 		print(tableau);
 		print(foundation);
 		
-		for (int i = 0; i < 30; i++) 						//test with 30 cards
+		for (int i = 0; i < 30; i++)
 		{
-			//current card from deck and play
-			Card current = cardDeck.draw();
+			//current card from deck and play				
+			//Card current = cardDeck.draw();
 			
-			playTableauCards();							//<---- this breaks things 1/2 the time for some reason
+			playTableauCards();							//testing this stupid method ----------------------
 			
-			if (play(current, false) == false)
-				cardDeck.discard(current);
+			//if (play(current, false) == false)
+			//	cardDeck.discard(current);
 			
 					
 		}
@@ -183,55 +184,58 @@ public class driver
 		{
  			//make sure it's not empty
  			if (! tableau.get(i).isEmpty())
-	 			{
- 					Card c = tableau.get(i).peek();
- 					int count = tableau.get(i).size();
- 					
- 					//find highest card in stack that's face up
- 					while (c.getHidden() == false)
+	 		{
+ 				Card c = tableau.get(i).peek();
+ 				int count = tableau.get(i).size();
+ 				
+				//find highest card in stack that's face up
+ 				for(int faceUp = tableau.get(i).size() -1; 0 < count; faceUp--)
+ 				{
+ 					c = tableau.get(i).elementAt(faceUp);
+ 					if(c.getHidden() == true)
  					{
- 						count--;
- 					} 					
- 					
- 					//go back down the cards to try moving them
- 					while(count < tableau.get(i).size())
- 					{
- 						int playable = isPlayable(c);
- 						//if the card can be played
- 						if(playable != -1)
- 						{
- 							ArrayList<Card> toMove = new ArrayList<Card>();
- 							//move cards to tableau.get(playable)
- 							//remove cards from current place
- 							while(count < tableau.get(i).size())
- 							{
- 								toMove.add(tableau.get(i).pop());
- 							}
- 							tableau.get(i).peek().setHidden(false);
- 							//put in new place
- 							for(int ii = 0; ii < toMove.size(); ii++)
- 							{
- 								tableau.get(playable).add(toMove.get(ii));
- 							}
- 						}
- 						else
- 							count++;
+ 						break;
  					}
+ 					count--;
+ 				} 					
+
+				//go back down the cards to try moving them
+				while(count < tableau.get(i).size())
+				{
+					c = tableau.get(i).elementAt(count);
+					int playable = isPlayable(c);
+					//if the card can be played
+					if(playable > -1)
+					{
+						ArrayList<Card> toMove = new ArrayList<Card>();
+						//move cards to tableau.get(playable)
+						//remove cards from current place
+						while(count < tableau.get(i).size())
+						{
+							toMove.add(tableau.get(i).pop());
+						}
+						if(!tableau.get(i).isEmpty())
+							tableau.get(i).peek().setHidden(false);
+						//put in new place
+						for(int ii = 0; ii < toMove.size(); ii++)
+						{
+							tableau.get(playable).add(toMove.get(ii));
+						}
+					}
+					else if(playable == -2)
+					{
+						tableau.get(i).pop();
+						if(!tableau.get(i).isEmpty())
+							tableau.get(i).peek().setHidden(false);
+					}
+					else
+						count++;
+				}
  					
- 					//Card c = tableau.get(i).peek();
-	 				if(play(c,true))
-	 				{
-	 					tableau.get(i).pop();
-	 					if (! tableau.get(i).isEmpty())
-	 						tableau.get(i).lastElement().setHidden(false);
-	 						//tableau.get(i).peek().setHidden(false);
-	 				}
-	 			}
- 			//to test
- 			//print(tableau);
-			//print(foundation);
-		}
- 	}
+	 		}
+	 	}
+	}
+ 	
  	
  	/**
  	 * Helper method to determine if a card is playable somewhere in tableau
@@ -243,10 +247,24 @@ public class driver
  		Card temp;
  		for(int i = 0; i < tableau.size(); i++)
 		{
- 			temp = tableau.get(i).peek();
- 			if(! temp.getColor().equals(c.getColor()) && temp.getValue()-1 == c.getValue())
+ 		
+ 		if(toFoundation(c))
+ 		{
+ 			
+ 			return -2;
+ 		}
+ 		else if(!tableau.get(i).isEmpty() && c.getValue() != 13)
  			{
- 				System.out.println(c.toString() + "is playable from tableau");
+	 			temp = tableau.get(i).peek();
+	 			if(! temp.getColor().equals(c.getColor()) && temp.getValue()-1 == c.getValue())
+	 			{
+	 				System.out.println(c.toString() + " is playable from tableau");
+	 				return i;
+	 			}
+ 			}
+ 			else if(tableau.get(i).isEmpty() && c.getValue() == 13)
+ 			{
+ 				System.out.println(c.toString() + " is playable from tableau");
  				return i;
  			}
 		}
