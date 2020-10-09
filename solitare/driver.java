@@ -55,7 +55,7 @@ public class driver
 		for (int i = 0; i < 10; i++)
 			playTableauCards();
 		
-		for (int i = 0; i < 30; i++)
+		for (int i = 0; i < 52; i++)						//num of times ran
 		{
 			//current card from deck and play				
 			Card current = cardDeck.draw();
@@ -66,7 +66,6 @@ public class driver
 			
 			for (int ii = 0; ii < 4; ii++)
 				playTableauCards();
-					
 		}
 		
 		//show results
@@ -214,8 +213,7 @@ public class driver
 					//if the card can be played
 					if(playable > -1)
 					{
-						ArrayList<Card> toMove = new ArrayList<Card>();
-						//move cards to tableau.get(playable)
+						Stack<Card> toMove = new Stack<Card>();
 						//remove cards from current place
 						while(count < tableau.get(i).size())
 						{
@@ -224,9 +222,9 @@ public class driver
 						if(!tableau.get(i).isEmpty())
 							tableau.get(i).peek().setHidden(false);
 						//put in new place
-						for(int ii = 0; ii < toMove.size(); ii++)
+						while(!toMove.isEmpty())
 						{
-							tableau.get(playable).add(toMove.get(ii));
+							tableau.get(playable).add(toMove.pop());
 						}
 					}
 					else if(playable == -2)
