@@ -47,7 +47,9 @@ public class driver
 		
 		//test here
 		System.out.println("Preconditions:");
+		System.out.println("Tableau Setup:");
 		print(tableau);
+		System.out.println("Foundation Setup:");
 		print(foundation);
 		
 		for (int i = 0; i < 30; i++) 						//test with 30 cards
@@ -267,7 +269,7 @@ public class driver
 		for(int i = 0; i < list.size(); i++)
 		{
 			Stack<Card> s = list.get(i);
-			System.out.println("Row " + i + ": ");
+			System.out.println("Pile " + (i + 1) + ": ");
 			for (Card c : s)
 			{
 				System.out.println(c.toString());
