@@ -24,8 +24,9 @@ public class CardDeck {
 		return deck.poll();
 	}
 	
-	public Queue<Card> getRemainingCards(){
-		return deck;
+	public void add(Card c)
+	{
+		deck.add(c);
 	}
 	
 	public void discard(Card c){
@@ -52,9 +53,6 @@ public class CardDeck {
 			deck.add(randomCard);
 			cards.remove(randomInt);
 		}
-
-		
-		
 	}
 	
 	public void printDeck() {

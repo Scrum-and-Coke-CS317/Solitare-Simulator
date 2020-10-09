@@ -11,6 +11,7 @@ public class driver
 	private static ArrayList<Stack<Card>> tableau = new ArrayList<Stack<Card>>(7);
 	//make foundation
 	private static ArrayList<Stack<Card>> foundation = new ArrayList<Stack<Card>>(4);
+	private static WasteDeck waste = new WasteDeck();
 	//count cards in foundation
 	private static int clubCount = 1;
 	private static int diamondCount = 1;
@@ -55,17 +56,28 @@ public class driver
 		for (int i = 0; i < 10; i++)
 			playTableauCards();
 		
-		for (int i = 0; i < 52; i++)						//num of times ran
+		for (int i = 0; i < 3; i++)						//num of times ran
 		{
-			//current card from deck and play				
+			for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
+			{
+			//current card from deck and play
 			Card current = cardDeck.draw();
+			if (play(cardDeck.draw(), false) == false)
+				waste.discard(current);
 			
-			if (play(current, false) == false)
-				cardDeck.discard(current);
-			
-			
-			for (int ii = 0; ii < 4; ii++)
+			if(waste.getDeckSize() != 0)
+				play(waste.draw(), false);
+
+			for (int iii = 0; iii < 4; iii++)
 				playTableauCards();
+		
+			if(waste.getDeckSize() != 0)
+				play(waste.draw(), false);
+				
+			}
+
+			System.out.println("-------------Resetting the deck");
+			cardDeck = waste.reset();
 		}
 		
 		//show results

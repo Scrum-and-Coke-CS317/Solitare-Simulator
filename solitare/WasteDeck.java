@@ -1,51 +1,68 @@
 package solitare;
 
+import java.util.ArrayList;
 /**
  * card deck class
  * 
  * @author scrum-and-coke
  */
 //use a queue or something??
-import java.util.*;
+import java.util.Stack;
 
 
-public class WasteDeck {
+public class WasteDeck 
+{
 	
-	public ArrayList<Card> cards = new ArrayList<Card>();
-	public Queue<Card> deck = new LinkedList<Card>();
-	
-	String[] suits = {"spade", "heart", "diamond", "club"};
+	public Stack<Card> deck = new Stack<Card>();
 	
 	/**
 	 * 
 	 * @return card from top of Waste Pile
 	 * @throws Exception if there are no cards in Waste
 	 */
-	public Card draw() throws Exception
+	public Card draw()
 	{
 		if (deck.isEmpty())
-			throw new Exception("No cards in waste");
-		return deck.poll();
-	}
-	
-	public Queue<Card> getRemainingCards(){
-		return deck;
+			return null;
+		return deck.pop();
 	}
 	 
-	public void discard(Card c){
+	public void discard(Card c)
+	{
 		deck.add(c);
 	}
 	
-	public int getDeckSize(){
+	public int getDeckSize()
+	{
 		return deck.size();
 	}
 	
-	public void initialize(){
+	public CardDeck reset()
+	{
+		CardDeck cd = new CardDeck();
+		
+		ArrayList<Card> temp = new ArrayList<Card>();
+		for(Card c:deck)	//reverse order for queue, right?
+		{
+			temp.add(c);
+		}
+		for(int i = temp.size(); i > 0; i--)
+		{
+			cd.add(temp.get(i));
+		}
+		
+		return cd;
+	}	
+	
+	public void clear()
+	{
 		deck.clear();
 	}
 	
-	public void printDeck() {
-		for (Card card:deck) {
+	public void printDeck() 
+	{
+		for (Card card:deck) 
+		{
 			System.out.println("Suit: "+card.getSuit() + " Number: "+card.getValue());
 		}
 	}
