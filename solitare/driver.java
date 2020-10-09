@@ -51,16 +51,21 @@ public class driver
 		print(tableau);
 		print(foundation);
 		
+		//works better if you let it go a few times before adding cards
+		for (int i = 0; i < 10; i++)
+			playTableauCards();
+		
 		for (int i = 0; i < 30; i++)
 		{
 			//current card from deck and play				
-			//Card current = cardDeck.draw();
+			Card current = cardDeck.draw();
 			
-			playTableauCards();							//testing this stupid method ----------------------
+			if (play(current, false) == false)
+				cardDeck.discard(current);
 			
-			//if (play(current, false) == false)
-			//	cardDeck.discard(current);
 			
+			for (int ii = 0; ii < 4; ii++)
+				playTableauCards();
 					
 		}
 		
@@ -106,17 +111,19 @@ public class driver
  	 */
  	private static boolean toTableau(Card c)
  	{
- 		Card above;
  		for(int i = 0; i < tableau.size(); i++)
- 		{
- 			above = tableau.get(i).peek(); //this might break things if it's empty lol
- 			
+ 		{ 			
  			if (tableau.get(i).isEmpty() && c.getValue() == 13)
  			{
  				tableau.get(i).add(c);
  				return true;
  			}
- 			else if (above.getValue() - 1 == c.getValue()  &&  !above.getColor().equals(c.getColor())) //I hope this works
+ 			else if(tableau.get(i).isEmpty() && c.getValue() != 13)
+ 			{
+ 				return false;
+ 			}
+ 			else if (tableau.get(i).peek().getValue() - 1 == c.getValue()
+ 					&&  !tableau.get(i).peek().getColor().equals(c.getColor())) //I hope this works
  			{
  				tableau.get(i).add(c);
  				return true;
