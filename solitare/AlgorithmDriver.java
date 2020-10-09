@@ -21,13 +21,13 @@ public class AlgorithmDriver {
 	private static int diamondCount = 1;
 	private static int heartCount = 1;
 	private static int spadeCount = 1;
-	
+
 	//individual game ending conditions
 	//end individual games
 	private static boolean gameEnd = false;
 	//increments when deck is empty and algorithm is stuck //also can get stuck when deck is empty
 	private static int stuckDeckCounter = 0; //TODO Increment to three when stuck to switch gameEnd to true
-	
+
 	/**
 	 * 
 	 * Runs the algorithm for the solitaire simulation
@@ -118,19 +118,18 @@ public class AlgorithmDriver {
 	 * @return  
 	 */
 	public static int tableauToFoundation() {
-		
+
 		//if successful reset stuckDeckCounter
-	return 2;
-}
+		return 2;
+	}
 
 	/**
 	 * 
 	 * @return  
 	 */
 	public static int unhideTableau() {
+		
 		return 3;
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -138,9 +137,11 @@ public class AlgorithmDriver {
 	 * @return 
 	 */
 	public static int checkWaste() {
+		if(wasteDeck.getDeckSize() == 0) { //waste is empty
+			return 5;
+		}
+		//waste isn't empty
 		return 4;
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -149,7 +150,6 @@ public class AlgorithmDriver {
 	 * @throws Exception 
 	 */
 	public static int drawCard() throws Exception {
-
 		if(cardDeck.getDeckSize() == 0 && wasteDeck.getDeckSize() == 0) { //if both piles empty
 			stuckDeckCounter++;//add to loss count
 			return 1;
@@ -172,9 +172,9 @@ public class AlgorithmDriver {
 	 * @return 
 	 */
 	public static int wasteToFoundation() {
-		return 6;
-		// TODO Auto-generated method stub
+		
 		//if successful reset stuckDeckCounter to 0
+		return 6;
 	}
 
 	/**
@@ -182,9 +182,11 @@ public class AlgorithmDriver {
 	 * @return 
 	 */
 	public static int wasteToTableau() {
+		
+		//if successful reset stuckDeckCounter to 0 and return to 1
 		return 1;
-		// TODO Auto-generated method stub
-		//if successful reset stuckDeckCounter to 0
+		//if not successful return to draw card
+		
 	}
 
 	/**
@@ -200,82 +202,82 @@ public class AlgorithmDriver {
 	 */
 	public static void printResults() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	///////////////////////////////////////////Helper Methods/////////////////////////////////////////////////////
-	
+
 	/**
- 	 * try to add card to tableau
- 	 * 
- 	 * @param c card
- 	 * @return true or false if works
- 	 */
- 	private static boolean toTableau(Card c)
- 	{
- 		Card above;
- 		for(int i = 0; i < tableau.size(); i++)
- 		{
- 			above = tableau.get(i).peek(); //this might break things if it's empty lol
- 			
- 			if (tableau.get(i).isEmpty() && c.getValue() == 13)
- 			{
- 				tableau.get(i).add(c);
- 				return true;
- 			}
- 			else if (above.getValue() - 1 == c.getValue()  &&  !above.getColor().equals(c.getColor())) //I hope this works
- 			{
- 				tableau.get(i).add(c);
- 				return true;
- 			}
- 			
- 		}
- 		
- 		return false;
- 	}
-	
- 	/**
- 	 * adds card to foundation
- 	 * 
- 	 * 0 clubs
- 	 * 1 diamonds
- 	 * 2 hearts
- 	 * 3 spades
- 	 * 
- 	 * if this gives a bunch of problems, make sure this card value > previous card value
- 	 * 
- 	 * @param c card
- 	 * @return true or false if works
- 	 */
- 	private static boolean toFoundation(Card c)
- 	{
- 		if (c.getSuit().equals("club") && clubCount == c.getValue())
- 		{
- 			foundation.get(0).add(c);
- 			clubCount++;
- 			return true;
- 		}
- 		else if (c.getSuit().equals("diamond") && diamondCount == c.getValue())
- 		{
- 			foundation.get(1).add(c);
- 			diamondCount++;
- 			return true;
- 		}
- 		else if (c.getSuit().equals("heart") && heartCount == c.getValue())
- 		{
- 			foundation.get(2).add(c);
- 			heartCount++;
- 			return true;
- 		}
- 		else if (c.getSuit().equals("spade") && spadeCount == c.getValue())
- 		{
- 			foundation.get(3).add(c);
- 			spadeCount++;
- 			return true;
- 		}
- 		else
- 		{
- 			return false;
- 		}
- 	}
+	 * try to add card to tableau
+	 * 
+	 * @param c card
+	 * @return true or false if works
+	 */
+	private static boolean toTableau(Card c)
+	{
+		Card above;
+		for(int i = 0; i < tableau.size(); i++)
+		{
+			above = tableau.get(i).peek(); //this might break things if it's empty lol
+
+			if (tableau.get(i).isEmpty() && c.getValue() == 13)
+			{
+				tableau.get(i).add(c);
+				return true;
+			}
+			else if (above.getValue() - 1 == c.getValue()  &&  !above.getColor().equals(c.getColor())) //I hope this works
+			{
+				tableau.get(i).add(c);
+				return true;
+			}
+
+		}
+
+		return false;
+	}
+
+	/**
+	 * adds card to foundation
+	 * 
+	 * 0 clubs
+	 * 1 diamonds
+	 * 2 hearts
+	 * 3 spades
+	 * 
+	 * if this gives a bunch of problems, make sure this card value > previous card value
+	 * 
+	 * @param c card
+	 * @return true or false if works
+	 */
+	private static boolean toFoundation(Card c)
+	{
+		if (c.getSuit().equals("club") && clubCount == c.getValue())
+		{
+			foundation.get(0).add(c);
+			clubCount++;
+			return true;
+		}
+		else if (c.getSuit().equals("diamond") && diamondCount == c.getValue())
+		{
+			foundation.get(1).add(c);
+			diamondCount++;
+			return true;
+		}
+		else if (c.getSuit().equals("heart") && heartCount == c.getValue())
+		{
+			foundation.get(2).add(c);
+			heartCount++;
+			return true;
+		}
+		else if (c.getSuit().equals("spade") && spadeCount == c.getValue())
+		{
+			foundation.get(3).add(c);
+			spadeCount++;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
