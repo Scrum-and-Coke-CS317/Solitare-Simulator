@@ -46,7 +46,6 @@ public class driver
 		}
 		
 		//test here
-		System.out.println("Preconditions:");
 		print(tableau);
 		print(foundation);
 		
@@ -54,12 +53,19 @@ public class driver
 		{
 			//current card from deck and play
 			Card current = cardDeck.draw();
+						
+			//beta feature
+			//play cards on tableau already
+			//only works on bottom card
 			
-			playTableauCards();							//<---- this breaks things 1/2 the time for some reason
+			//playTableauCards();							//<---- this breaks things 1/2 the time for some reason
 			
-			if (play(current, false) == false)
+			if (play(current, false) == false)				//Bug: doesn't switch off between colors
 				cardDeck.discard(current);
 			
+			//next:
+	 		//make sure it only goes through deck three times
+			//may need a second card deck :/
 					
 		}
 		
@@ -173,85 +179,28 @@ public class driver
  	
  	/**
  	 * try to play cards down on tableau and unhide card under
- 	 * this method is a terrible mess and I hate it
  	 * 
  	 */
  	private static void playTableauCards()
  	{
- 		//for each of the 7 stacks in tableau
  		for(int i = 0; i < tableau.size(); i++)
 		{
- 			//make sure it's not empty
  			if (! tableau.get(i).isEmpty())
 	 			{
- 					Card c = tableau.get(i).peek();
- 					int count = tableau.get(i).size();
- 					
- 					//find highest card in stack that's face up
- 					while (c.getHidden() == false)
- 					{
- 						count--;
- 					} 					
- 					
- 					//go back down the cards to try moving them
- 					while(count < tableau.get(i).size())
- 					{
- 						int playable = isPlayable(c);
- 						//if the card can be played
- 						if(playable != -1)
- 						{
- 							ArrayList<Card> toMove = new ArrayList<Card>();
- 							//move cards to tableau.get(playable)
- 							//remove cards from current place
- 							while(count < tableau.get(i).size())
- 							{
- 								toMove.add(tableau.get(i).pop());
- 							}
- 							tableau.get(i).peek().setHidden(false);
- 							//put in new place
- 							for(int ii = 0; ii < toMove.size(); ii++)
- 							{
- 								tableau.get(playable).add(toMove.get(ii));
- 							}
- 						}
- 						else
- 							count++;
- 					}
- 					
- 					//Card c = tableau.get(i).peek();
+	 				Card c = tableau.get(i).peek();
 	 				if(play(c,true))
 	 				{
 	 					tableau.get(i).pop();
 	 					if (! tableau.get(i).isEmpty())
 	 						tableau.get(i).lastElement().setHidden(false);
 	 						//tableau.get(i).peek().setHidden(false);
+	 						
 	 				}
 	 			}
  			//to test
  			//print(tableau);
 			//print(foundation);
 		}
- 	}
- 	
- 	/**
- 	 * Helper method to determine if a card is playable somewhere in tableau
- 	 * 
- 	 * @return
- 	 */
- 	private static int isPlayable(Card c)
- 	{
- 		Card temp;
- 		for(int i = 0; i < tableau.size(); i++)
-		{
- 			temp = tableau.get(i).peek();
- 			if(! temp.getColor().equals(c.getColor()) && temp.getValue()-1 == c.getValue())
- 			{
- 				System.out.println(c.toString() + "is playable from tableau");
- 				return i;
- 			}
-		}
- 		
- 		return -1; //-1 if can't be played
  	}
  	
  	
