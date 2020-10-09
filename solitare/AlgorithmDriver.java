@@ -16,6 +16,12 @@ public class AlgorithmDriver {
 	//make foundation
 	public static ArrayList<Stack<Card>> foundation = new ArrayList<Stack<Card>>(4);
 
+	//toFoundation counting variables
+	private static int clubCount = 1;
+	private static int diamondCount = 1;
+	private static int heartCount = 1;
+	private static int spadeCount = 1;
+	
 	//individual game ending conditions
 	//end individual games
 	private static boolean gameEnd = false;
@@ -56,7 +62,12 @@ public class AlgorithmDriver {
 					wasteToTableau(); //step 6: sends to step 1
 				}
 			}
+			//reset for new game
 			gameEnd = false;
+			clubCount = 1;
+			diamondCount = 1;
+			heartCount = 1;
+			spadeCount = 1;
 		}
 
 		calculateSimStatistics();
@@ -189,8 +200,79 @@ public class AlgorithmDriver {
 
 	}
 
-
-
-
-
+	///////////////////////////////////////////Helper Methods/////////////////////////////////////////////////////
+	
+	/**
+ 	 * try to add card to tableau
+ 	 * 
+ 	 * @param c card
+ 	 * @return true or false if works
+ 	 */
+ 	private static boolean toTableau(Card c)
+ 	{
+ 		Card above;
+ 		for(int i = 0; i < tableau.size(); i++)
+ 		{
+ 			above = tableau.get(i).peek(); //this might break things if it's empty lol
+ 			
+ 			if (tableau.get(i).isEmpty() && c.getValue() == 13)
+ 			{
+ 				tableau.get(i).add(c);
+ 				return true;
+ 			}
+ 			else if (above.getValue() - 1 == c.getValue()  &&  !above.getColor().equals(c.getColor())) //I hope this works
+ 			{
+ 				tableau.get(i).add(c);
+ 				return true;
+ 			}
+ 			
+ 		}
+ 		
+ 		return false;
+ 	}
+	
+ 	/**
+ 	 * adds card to foundation
+ 	 * 
+ 	 * 0 clubs
+ 	 * 1 diamonds
+ 	 * 2 hearts
+ 	 * 3 spades
+ 	 * 
+ 	 * if this gives a bunch of problems, make sure this card value > previous card value
+ 	 * 
+ 	 * @param c card
+ 	 * @return true or false if works
+ 	 */
+ 	private static boolean toFoundation(Card c)
+ 	{
+ 		if (c.getSuit().equals("club") && clubCount == c.getValue())
+ 		{
+ 			foundation.get(0).add(c);
+ 			clubCount++;
+ 			return true;
+ 		}
+ 		else if (c.getSuit().equals("diamond") && diamondCount == c.getValue())
+ 		{
+ 			foundation.get(1).add(c);
+ 			diamondCount++;
+ 			return true;
+ 		}
+ 		else if (c.getSuit().equals("heart") && heartCount == c.getValue())
+ 		{
+ 			foundation.get(2).add(c);
+ 			heartCount++;
+ 			return true;
+ 		}
+ 		else if (c.getSuit().equals("spade") && spadeCount == c.getValue())
+ 		{
+ 			foundation.get(3).add(c);
+ 			spadeCount++;
+ 			return true;
+ 		}
+ 		else
+ 		{
+ 			return false;
+ 		}
+ 	}
 }
