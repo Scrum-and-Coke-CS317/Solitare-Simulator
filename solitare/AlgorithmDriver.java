@@ -1,4 +1,4 @@
-package Simulation;
+package solitare;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,13 +8,13 @@ public class AlgorithmDriver {
 
 	//Initialize
 	//make deck to draw from
-	static CardDeck cardDeck = new CardDeck();
+	public static CardDeck cardDeck = new CardDeck();
 	//make a waste to discard to
-	static WasteDeck wasteDeck = new WasteDeck();
+	public static WasteDeck wasteDeck = new WasteDeck();
 	//make tableau
-	static ArrayList<Stack<Card>> tableau = new ArrayList<Stack<Card>>(7);
+	public static ArrayList<Stack<Card>> tableau = new ArrayList<Stack<Card>>(7);
 	//make foundation
-	static ArrayList<Stack<Card>> foundation = new ArrayList<Stack<Card>>(4);
+	public static ArrayList<Stack<Card>> foundation = new ArrayList<Stack<Card>>(4);
 
 	//individual game ending conditions
 	//end individual games
