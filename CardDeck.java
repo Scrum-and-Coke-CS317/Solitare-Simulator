@@ -1,4 +1,3 @@
-package Solitare;
 /**
  * card deck class
  * 
