@@ -1,3 +1,5 @@
+package solitare;
+
 /**
  * card class
  * 

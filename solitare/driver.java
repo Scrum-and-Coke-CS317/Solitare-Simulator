@@ -1,3 +1,5 @@
+package solitare;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
