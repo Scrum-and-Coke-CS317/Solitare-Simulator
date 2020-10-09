@@ -20,31 +20,8 @@ public class driver
 
  public static void main(String[] args) throws Exception
  	{
-	 	//initialize deck
-		cardDeck.initialize();
-		//initialize foundation
-		for(int i = 0; i < 4; i++)
-		{
-			Stack<Card> s = new Stack<Card>();
-			foundation.add(s);
-		}
+	 init();
 
-		//make tableau
-		//ArrayList of Stack<Card>
-		//say a prayer that this works
-		for(int i = 0; i < 7; i++)
-		{
-			Stack<Card> s = new Stack<Card>();
-			tableau.add(s);
-			//number of cards per stack
-			for (int ii = 0; ii < i+1; ii++)
-			{
-				Card c = cardDeck.draw();
-				if (ii != i)
-					c.setHidden(true); //only last card shows
-				tableau.get(i).add(c);
-			}
-		}
 
 		//test here
 		System.out.println("Preconditions:");
@@ -83,13 +60,44 @@ public class driver
 		print(foundation);
 
  	}
+ 
+	 /** 
+	  * initializes the game setup
+	  */
+	 private static void init() {
+		 	//initialize deck
+			cardDeck.initialize();
+			//initialize foundation
+			for(int i = 0; i < 4; i++)
+			{
+				Stack<Card> s = new Stack<Card>();
+				foundation.add(s);
+			}
+
+			//make tableau
+			//ArrayList of Stack<Card>
+			//say a prayer that this works
+			for(int i = 0; i < 7; i++)
+			{
+				Stack<Card> s = new Stack<Card>();
+				tableau.add(s);
+				//number of cards per stack
+				for (int ii = 0; ii < i+1; ii++)
+				{
+					Card c = cardDeck.draw();
+					if (ii != i)
+						c.setHidden(true); //only last card shows
+					tableau.get(i).add(c);
+				}
+			}
+	 }
 
  	/**
  	 * Plays card if possible or discards
  	 *
  	 * @param c card to play
  	 */
- 	private static boolean play(Card c, boolean fromTableau)
+	 private static boolean play(Card c, boolean fromTableau)
  	{
  		if (fromTableau)
  			System.out.println("   Play Card from Tableau: " + c.toString());
@@ -113,7 +121,7 @@ public class driver
  	 * @param c card
  	 * @return true or false if works
  	 */
- 	private static boolean toTableau(Card c)
+	 private static boolean toTableau(Card c)
  	{
  		Card above;
  		for(int i = 0; i < tableau.size(); i++)
@@ -149,7 +157,7 @@ public class driver
  	 * @param c card
  	 * @return true or false if works
  	 */
- 	private static boolean toFoundation(Card c)
+	 private static boolean toFoundation(Card c)
  	{
  		if (c.getSuit().equals("club") && clubCount == c.getValue())
  		{
@@ -185,7 +193,7 @@ public class driver
  	 * try to play cards down on tableau and unhide card under
  	 *
  	 */
- 	private static void playTableauCards()
+	 private static void playTableauCards()
  	{
  		for(int i = 0; i < tableau.size(); i++)
 		{
@@ -213,7 +221,7 @@ public class driver
  	 *
  	 * @param list tableau
  	 */
- 	private static void print(ArrayList<Stack<Card>> list)
+	 private static void print(ArrayList<Stack<Card>> list)
  	{
  		//an attempt to print what's in the tableau
 		//if this works, that's proof God exists
