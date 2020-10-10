@@ -49,17 +49,17 @@ public class AlgorithmDriver {
 			//each game ends when stuckDeckCounter increments to 3 or all cards in the tableau are not hidden
 			while(gameEnd == false) {
 				if (gameStep == 1) {
-					tableauToFoundation(); //step 1: sends to step 2
+					gameStep = tableauToFoundation(); //step 1: sends to step 2
 				} else if (gameStep == 2) { 
-					unhideTableau(); //step 2: sends to step 3
+					gameStep = unhideTableau(); //step 2: sends to step 3
 				} else if (gameStep == 3) {
-					checkWaste(); //step 3: sends to step 4 if it doesn't have cards, step 5 if it does
+					gameStep = checkWaste(); //step 3: sends to step 4 if it doesn't have cards, step 5 if it does
 				} else if (gameStep == 4) {
-					drawCard(); //step 4: sends to step 5, if empty and waste empty send to step 1
+					gameStep = drawCard(); //step 4: sends to step 5, if empty and waste empty send to step 1
 				} else if (gameStep == 5) {
-					wasteToFoundation(); //step 5: sends to step 6
+					gameStep = wasteToFoundation(); //step 5: sends to step 6
 				} else if (gameStep == 6) {
-					wasteToTableau(); //step 6: sends to step 1
+					gameStep = wasteToTableau(); //step 6: sends to step 1
 				}
 			}
 			//reset for new game
@@ -213,7 +213,7 @@ public class AlgorithmDriver {
 	 * @param c card
 	 * @return true or false if works
 	 */
-	private static boolean toTableau(Card c)
+	public static boolean toTableau(Card c)
 	{
 		Card above;
 		for(int i = 0; i < tableau.size(); i++)
@@ -249,7 +249,7 @@ public class AlgorithmDriver {
 	 * @param c card
 	 * @return true or false if works
 	 */
-	private static boolean toFoundation(Card c)
+	public static boolean toFoundation(Card c)
 	{
 		if (c.getSuit().equals("club") && clubCount == c.getValue())
 		{
@@ -280,4 +280,11 @@ public class AlgorithmDriver {
 			return false;
 		}
 	}
+	
+	public int getClubCount() {return clubCount;}
+	public int getDiamondCount() {return diamondCount;}
+	public int getHeartCount() {return heartCount;}
+	public int getSpadeCount() {return spadeCount;}
+	
+	
 }

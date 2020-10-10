@@ -11,6 +11,7 @@ public class driver
 	private static ArrayList<Stack<Card>> tableau = new ArrayList<Stack<Card>>(7);
 	//make foundation
 	private static ArrayList<Stack<Card>> foundation = new ArrayList<Stack<Card>>(4);
+	private static WasteDeck waste = new WasteDeck();
 	//count cards in foundation
 	private static int clubCount = 1;
 	private static int diamondCount = 1;
@@ -51,17 +52,32 @@ public class driver
 		print(tableau);
 		print(foundation);
 		
-		for (int i = 0; i < 30; i++)
+		//works better if you let it go a few times before adding cards
+		for (int i = 0; i < 10; i++)
+			playTableauCards();
+		
+		for (int i = 0; i < 3; i++)						//num of times ran
 		{
-			//current card from deck and play				
-			//Card current = cardDeck.draw();
+			for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
+			{
+			//current card from deck and play
+			Card current = cardDeck.draw();
+			if (play(cardDeck.draw(), false) == false)
+				waste.discard(current);
 			
-			playTableauCards();							//testing this stupid method ----------------------
-			
-			//if (play(current, false) == false)
-			//	cardDeck.discard(current);
-			
-					
+			if(waste.getDeckSize() != 0)
+				play(waste.draw(), false);
+
+			for (int iii = 0; iii < 4; iii++)
+				playTableauCards();
+		
+			if(waste.getDeckSize() != 0)
+				play(waste.draw(), false);
+				
+			}
+
+			System.out.println("-------------Resetting the deck");
+			cardDeck = waste.reset();
 		}
 		
 		//show results
@@ -106,17 +122,19 @@ public class driver
  	 */
  	private static boolean toTableau(Card c)
  	{
- 		Card above;
  		for(int i = 0; i < tableau.size(); i++)
- 		{
- 			above = tableau.get(i).peek(); //this might break things if it's empty lol
- 			
+ 		{ 			
  			if (tableau.get(i).isEmpty() && c.getValue() == 13)
  			{
  				tableau.get(i).add(c);
  				return true;
  			}
- 			else if (above.getValue() - 1 == c.getValue()  &&  !above.getColor().equals(c.getColor())) //I hope this works
+ 			else if(tableau.get(i).isEmpty() && c.getValue() != 13)
+ 			{
+ 				return false;
+ 			}
+ 			else if (tableau.get(i).peek().getValue() - 1 == c.getValue()
+ 					&&  !tableau.get(i).peek().getColor().equals(c.getColor())) //I hope this works
  			{
  				tableau.get(i).add(c);
  				return true;
@@ -207,8 +225,7 @@ public class driver
 					//if the card can be played
 					if(playable > -1)
 					{
-						ArrayList<Card> toMove = new ArrayList<Card>();
-						//move cards to tableau.get(playable)
+						Stack<Card> toMove = new Stack<Card>();
 						//remove cards from current place
 						while(count < tableau.get(i).size())
 						{
@@ -217,9 +234,9 @@ public class driver
 						if(!tableau.get(i).isEmpty())
 							tableau.get(i).peek().setHidden(false);
 						//put in new place
-						for(int ii = 0; ii < toMove.size(); ii++)
+						while(!toMove.isEmpty())
 						{
-							tableau.get(playable).add(toMove.get(ii));
+							tableau.get(playable).add(toMove.pop());
 						}
 					}
 					else if(playable == -2)
