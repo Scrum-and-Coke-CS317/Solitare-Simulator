@@ -48,8 +48,8 @@ public class driver
 		}
 
 		System.out.println("Preconditions:");
-		print(tableau);
-		print(foundation);
+		print(tableau, "tableau");
+		print(foundation, "foundation");
 
 		//works better if you let it go a few times before adding cards
 		for (int i = 0; i < 10; i++)
@@ -64,8 +64,8 @@ public class driver
 		System.out.println();
 		System.out.println();
 		System.out.println("Done-----");
-		print(tableau);
-		print(foundation);
+		print(tableau, "tableau");
+		print(foundation, "foundation");
 
 	}
 
@@ -309,14 +309,15 @@ public class driver
 	 * 
 	 * @param list tableau
 	 */
-	private static void print(ArrayList<Stack<Card>> list)
+	private static void print(ArrayList<Stack<Card>> list, String name)
 	{
 		//an attempt to print what's in the tableau
 		//if this works, that's proof God exists
+		System.out.println(name);
 		for(int i = 0; i < list.size(); i++)
 		{
 			Stack<Card> s = list.get(i);
-			System.out.println("Row " + i + ": ");
+			System.out.println(name+" " + i + ": ");
 			for (Card c : s)
 			{
 				System.out.println(c.toString());
