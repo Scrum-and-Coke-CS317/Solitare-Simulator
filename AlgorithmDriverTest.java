@@ -150,34 +150,56 @@ class AlgorithmDriverTest {
 	void testToFoundation() {
 		boolean result = false;
 		//set up new cards and tests to see if they are added to foundation. Takes into account differing values of cardCount variables, but 
-		//foundation arrayList must have the respective hard coded indexes for the clubs, diamonds, hearts, and spades.
+		//foundation arrayList must have the respective hard coded indexes for the clubs, diamonds, hearts, and spades. also could create compare methods to decouple code
 		Card nextClub = new Card();
 		nextClub.setSuit("club");
 		nextClub.setValue(testDriver.getClubCount());
 		result = AlgorithmDriver.toFoundation(nextClub);
 		Assert.assertTrue("successfully adds next club to foundation", result);
-		Assert.assertTrue("Checks to make sure club added to top of its stack", nextClub.equals(AlgorithmDriver.foundation.get(0).peek()));
+		Assert.assertTrue("Checks to make sure new club value was added to top of its stack", nextClub.getValue() == 
+				(AlgorithmDriver.foundation.get(0).peek()).getValue());
+		
 		
 		Card nextDiamond = new Card();
 		nextDiamond.setSuit("diamond");
 		nextDiamond.setValue(testDriver.getDiamondCount());
 		result = AlgorithmDriver.toFoundation(nextDiamond);
 		Assert.assertTrue("successfully adds next diamond to foundation", result);
-		Assert.assertTrue("Checks to make sure diamond added to top of its stack", nextDiamond.equals(AlgorithmDriver.foundation.get(1).peek()));
+		Assert.assertTrue("Checks to make sure new diamond value added to top of its stack", nextDiamond.getValue() == 
+				(AlgorithmDriver.foundation.get(1).peek()).getValue());
 		
 		Card nextHeart = new Card();
 		nextHeart.setSuit("heart");
 		nextHeart.setValue(testDriver.getHeartCount());
 		result = AlgorithmDriver.toFoundation(nextHeart);
 		Assert.assertTrue("successfully adds next heart to foundation", result);
-		Assert.assertTrue("Checks to make sure heart added to top of its stack", nextHeart.equals(AlgorithmDriver.foundation.get(2).peek()));
+		Assert.assertTrue("Checks to make sure new heart value added to top of its stack", nextHeart.getValue() == 
+				(AlgorithmDriver.foundation.get(2).peek()).getValue());
 		
 		Card nextSpade = new Card();
 		nextSpade.setSuit("spade");
 		nextSpade.setValue(testDriver.getSpadeCount());
 		result = AlgorithmDriver.toFoundation(nextSpade);
 		Assert.assertTrue("successfully adds next spade to foundation", result);
-		Assert.assertTrue("Checks to make sure spade added to top of its stack", nextSpade.equals(AlgorithmDriver.foundation.get(3).peek()));
+		Assert.assertTrue("Checks to make sure new spade value added to top of its stack", nextSpade.getValue() ==
+				(AlgorithmDriver.foundation.get(3).peek()).getValue());
+		
+		//tests unsuccessfully adding a card of same suit to the Foundation by trying to add the nextSpade card again, after it has already been added
+		result = AlgorithmDriver.toFoundation(nextSpade);
+		nextSpade.setValue(nextSpade.getValue()-1);
+		Assert.assertTrue("unsuccessfully adds card to foundation (already was added)", !result);
+		nextSpade.setValue(nextSpade.getValue()+1);
+		Assert.assertTrue("maintains that the top spade value card is unchanged", nextSpade.getValue() == (AlgorithmDriver.foundation.get(3).peek().getValue()));
+		
+		//tests trying to add a different suit on top of a differing foundation
+		nextHeart.setValue(testDriver.getClubCount());
+		result = AlgorithmDriver.toFoundation(nextHeart);
+		Assert.assertTrue("maintains it was unsuccessfully added", !result);
+		Assert.assertTrue("checks top club foundation still has same value", nextClub.getValue() == 
+				AlgorithmDriver.foundation.get(0).peek().getValue());
+		Assert.assertTrue("checks top club foundation still has same suit", nextClub.getSuit().equals
+				(AlgorithmDriver.foundation.get(0).peek().getSuit()));
+		
 		
 		
 		
