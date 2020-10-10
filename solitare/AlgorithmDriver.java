@@ -213,7 +213,7 @@ public class AlgorithmDriver {
 	 * @param c card
 	 * @return true or false if works
 	 */
-	private static boolean toTableau(Card c)
+	public static boolean toTableau(Card c)
 	{
 		Card above;
 		for(int i = 0; i < tableau.size(); i++)
@@ -249,7 +249,7 @@ public class AlgorithmDriver {
 	 * @param c card
 	 * @return true or false if works
 	 */
-	private static boolean toFoundation(Card c)
+	public static boolean toFoundation(Card c)
 	{
 		if (c.getSuit().equals("club") && clubCount == c.getValue())
 		{
@@ -280,4 +280,11 @@ public class AlgorithmDriver {
 			return false;
 		}
 	}
+	
+	public int getClubCount() {return clubCount;}
+	public int getDiamondCount() {return diamondCount;}
+	public int getHeartCount() {return heartCount;}
+	public int getSpadeCount() {return spadeCount;}
+	
+	
 }

@@ -1,6 +1,9 @@
 
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.Assert;
+
 import solitare.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -137,4 +140,47 @@ class AlgorithmDriverTest {
 	//		fail("Not yet implemented");
 	//	}
 
+	@Test
+	void testToTableau() {
+		
+	}
+			
+	
+	@Test
+	void testToFoundation() {
+		boolean result = false;
+		//set up new cards and tests to see if they are added to foundation
+		Card nextClub = new Card();
+		nextClub.setSuit("club");
+		nextClub.setValue(testDriver.getClubCount());
+		result = AlgorithmDriver.toFoundation(nextClub);
+		Assert.assertTrue("successfully adds next club to foundation", result);
+		Assert.assertTrue("Checks to make sure club added to top of its stack", nextClub.equals(AlgorithmDriver.foundation.get(0).peek()));
+		
+		Card nextDiamond = new Card();
+		nextDiamond.setSuit("diamond");
+		nextDiamond.setValue(testDriver.getDiamondCount());
+		result = AlgorithmDriver.toFoundation(nextDiamond);
+		Assert.assertTrue("successfully adds next diamond to foundation", result);
+		Assert.assertTrue("Checks to make sure diamond added to top of its stack", nextDiamond.equals(AlgorithmDriver.foundation.get(1).peek()));
+		
+		Card nextHeart = new Card();
+		nextHeart.setSuit("heart");
+		nextHeart.setValue(testDriver.getHeartCount());
+		result = AlgorithmDriver.toFoundation(nextHeart);
+		Assert.assertTrue("successfully adds next heart to foundation", result);
+		Assert.assertTrue("Checks to make sure heart added to top of its stack", nextHeart.equals(AlgorithmDriver.foundation.get(2).peek()));
+		
+		Card nextSpade = new Card();
+		nextSpade.setSuit("spade");
+		nextSpade.setValue(testDriver.getSpadeCount());
+		result = AlgorithmDriver.toFoundation(nextSpade);
+		Assert.assertTrue("successfully adds next spade to foundation", result);
+		Assert.assertTrue("Checks to make sure spade added to top of its stack", nextSpade.equals(AlgorithmDriver.foundation.get(3).peek()));
+		
+		
+		
+		
+	}
+	
 }
