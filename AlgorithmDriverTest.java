@@ -149,7 +149,8 @@ class AlgorithmDriverTest {
 	@Test
 	void testToFoundation() {
 		boolean result = false;
-		//set up new cards and tests to see if they are added to foundation
+		//set up new cards and tests to see if they are added to foundation. Takes into account differing values of cardCount variables, but 
+		//foundation arrayList must have the respective hard coded indexes for the clubs, diamonds, hearts, and spades.
 		Card nextClub = new Card();
 		nextClub.setSuit("club");
 		nextClub.setValue(testDriver.getClubCount());
