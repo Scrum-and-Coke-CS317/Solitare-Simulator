@@ -222,12 +222,12 @@ public class AlgorithmDriver {
 
 			if (tableau.get(i).isEmpty() && c.getValue() == 13)
 			{
-				tableau.get(i).add(c);
+				tableau.get(i).push(c);
 				return true;
 			}
 			else if (above.getValue() - 1 == c.getValue()  &&  !above.getColor().equals(c.getColor())) //I hope this works
 			{
-				tableau.get(i).add(c);
+				tableau.get(i).push(c);
 				return true;
 			}
 
@@ -253,25 +253,25 @@ public class AlgorithmDriver {
 	{
 		if (c.getSuit().equals("club") && clubCount == c.getValue())
 		{
-			foundation.get(0).add(c);
+			foundation.get(0).push(c);
 			clubCount++;
 			return true;
 		}
 		else if (c.getSuit().equals("diamond") && diamondCount == c.getValue())
 		{
-			foundation.get(1).add(c);
+			foundation.get(1).push(c);
 			diamondCount++;
 			return true;
 		}
 		else if (c.getSuit().equals("heart") && heartCount == c.getValue())
 		{
-			foundation.get(2).add(c);
+			foundation.get(2).push(c);
 			heartCount++;
 			return true;
 		}
 		else if (c.getSuit().equals("spade") && spadeCount == c.getValue())
 		{
-			foundation.get(3).add(c);
+			foundation.get(3).push(c);
 			spadeCount++;
 			return true;
 		}
