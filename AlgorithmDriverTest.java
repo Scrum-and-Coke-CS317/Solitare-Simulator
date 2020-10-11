@@ -154,7 +154,7 @@ class AlgorithmDriverTest {
 			AlgorithmDriver.tableau.get(3).pop();
 		}
 		
-		//4 spades at index 4
+		//4 spades at index 4 (middle deck)
 		Card known4Spade = new Card();
 		known4Spade.setValue(4);
 		known4Spade.setSuit("spade");
@@ -166,6 +166,41 @@ class AlgorithmDriverTest {
 		known12Diamond.setSuit("diamond");
 		AlgorithmDriver.tableau.get(6).push(known12Diamond);
 		
+		//fill remaining stacks with known8Heart to make sure no test card is added too early
+		AlgorithmDriver.tableau.get(1).push(known8Heart);
+		AlgorithmDriver.tableau.get(2).push(known8Heart);
+		AlgorithmDriver.tableau.get(5).push(known8Heart);
+		
+		//testing begins
+		Card king = new Card();
+		king.setValue(13);
+		king.setSuit("heart");
+		boolean result = AlgorithmDriver.toTableau(king);
+		Assert.assertTrue("King placed in empty spot", result);
+		Assert.assertTrue("check that king is in specified position", AlgorithmDriver.tableau.get(3).peek().getValue() == king.getValue());
+		AlgorithmDriver.tableau.get(3).pop(); //remove card
+		
+		result = AlgorithmDriver.toTableau(known8Heart);
+		Assert.assertTrue("check if non king is placed in empty space", !result);
+		Assert.assertTrue("Empty space is still empty", AlgorithmDriver.tableau.get(3).empty());
+		
+		Card spade7 = new Card(7, "spade");
+		result = AlgorithmDriver.toTableau(spade7);
+		Assert.assertTrue("successful add card to first index", result);
+		Assert.assertTrue("spade7 was successfully added", AlgorithmDriver.tableau.get(0).peek().getValue() == spade7.getValue());
+		
+		result = AlgorithmDriver.toTableau(known8Heart);
+		Assert.assertTrue("try to add card with same suit and value as other cards", !result);
+		
+		Card spade6 = new Card(6, "spade");
+		result = AlgorithmDriver.toTableau(spade6);
+		Assert.assertTrue("add correct value but wrong suit for index 0", !result);
+		Assert.assertTrue("value at index 0 is still 7", AlgorithmDriver.tableau.get(0).peek().getValue() == spade7.getValue());
+	
+		Card spade11 = new Card(11, "spade");
+		result = AlgorithmDriver.toTableau(spade11);
+		Assert.assertTrue("card added to last tableau index", result);
+		Assert.assertTrue("check to see it was actually added", spade11.getValue() == AlgorithmDriver.tableau.get(6).peek().getValue());
 	}
 			
 	
