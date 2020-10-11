@@ -142,6 +142,29 @@ class AlgorithmDriverTest {
 
 	@Test
 	void testToTableau() {
+		//known cards that can be added to tableau stacks and tested on
+		//8 hearts at index 0
+		Card known8Heart = new Card();
+		known8Heart.setValue(8);
+		known8Heart.setSuit("heart");
+		AlgorithmDriver.tableau.get(0).push(known8Heart);
+		
+		//empty pile at index 3
+		while(!AlgorithmDriver.tableau.get(3).empty()) {
+			AlgorithmDriver.tableau.get(3).pop();
+		}
+		
+		//4 spades at index 4
+		Card known4Spade = new Card();
+		known4Spade.setValue(4);
+		known4Spade.setSuit("spade");
+		AlgorithmDriver.tableau.get(4).push(known4Spade);
+		
+		//12 diamond at index 6 (last index)
+		Card known12Diamond = new Card();
+		known12Diamond.setValue(12);
+		known12Diamond.setSuit("diamond");
+		AlgorithmDriver.tableau.get(6).push(known12Diamond);
 		
 	}
 			
