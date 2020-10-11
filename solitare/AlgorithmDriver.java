@@ -117,10 +117,24 @@ public class AlgorithmDriver {
 	 * 
 	 * @return  
 	 */
-	public static int tableauToFoundation() {
-
-		//if successful reset stuckDeckCounter
-		return 2;
+	public static boolean tableauToFoundation() {
+		int index = 0;
+		boolean addedToFoundation = false;
+		Card c;
+		
+		while (index < tableau.size() && !addedToFoundation) {
+			c = tableau.get(index).peek();
+			if (c != null) {addedToFoundation = toFoundation(c);}
+			
+			if (addedToFoundation) {
+				tableau.get(index).pop();
+				stuckDeckCounter = 0;
+				}
+			
+			index++;
+		}
+			
+		return addedToFoundation;
 	}
 
 	/**
