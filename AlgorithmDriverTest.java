@@ -81,9 +81,9 @@ class AlgorithmDriverTest {
 				testDriver.foundation.get(3).size() == 0);
 	}
 
-	@SuppressWarnings("static-access")
-	@Test
-	void testTableauToFoundation() throws Exception {
+//	@SuppressWarnings("static-access")
+//	@Test
+//	void testTableauToFoundation() throws Exception {
 //		testDriver.setup();
 //		testDriver.tableauToFoundation();
 //		//check for correct card movement
@@ -140,6 +140,58 @@ class AlgorithmDriverTest {
 	//		fail("Not yet implemented");
 	//	}
 
+	@Test
+	void testTableauToFoundation() {
+		//clear tableau and foundation so this method has independent tableau and foundation setup
+		for(int i = 0; i < AlgorithmDriver.tableau.size(); i++) {
+			while(!AlgorithmDriver.tableau.get(i).empty()) {
+				AlgorithmDriver.tableau.get(i).pop();
+			}
+		}
+		
+		for(int i = 0; i < AlgorithmDriver.foundation.size(); i++) {
+			while(!AlgorithmDriver.foundation.get(i).empty()) {
+				AlgorithmDriver.foundation.get(i).pop();
+			}
+		}
+		
+		//set up to have foundation with index 0 and 1 empty (clubs and diamonds, index 2 (hearts) with 3 of hearts on top, and index 3 (spades) with 10 of spades on top
+		Card heart3  = new Card(3, "heart");
+		Card spade10 = new Card(10, "spade");
+		AlgorithmDriver.foundation.get(2).push(heart3);
+		AlgorithmDriver.foundation.get(3).push(spade10);
+		
+		//setup to have tableau with club1 index 0, diamond1 on club2 index 2, heart4 index 3, spade11 index 5
+		Card club1 = new Card(1, "club");
+		Card diamond1 = new Card(1, "diamond");
+		Card club2 = new Card(2, "club");
+		Card heart4 = new Card(4, "heart");
+		Card spade11 = new Card(11, "spade");
+		
+		AlgorithmDriver.tableau.get(0).push(club1);
+		AlgorithmDriver.tableau.get(1).push(club2);
+		AlgorithmDriver.tableau.get(1).push(diamond1);
+		AlgorithmDriver.tableau.get(3).push(heart4);
+		AlgorithmDriver.tableau.get(6).push(spade11);
+		
+		//tests begin. must check method return value, suit and value of top foundation card, make sure card is removed from its position in tableau 
+		//move club 1 to foundation
+		boolean result = AlgorithmDriver.tableauToFoundation(); 
+		
+		//move diamond1 to foundation
+		
+		//move club2 to foundation
+		
+		//move heart4 to foundation
+		
+		//move spade 11 to foundation
+		
+		//try to move to foundation after all is empty
+
+		//End Result: should move all cards from this new setup to respective foundations. clubs should have c1 and c2, diamonds should have d1, hearts should have h4 and h3, and 
+		//spades should have s11 and s10.
+	}
+	
 	@Test
 	void testToTableau() {
 		//known cards that can be added to tableau stacks and tested on

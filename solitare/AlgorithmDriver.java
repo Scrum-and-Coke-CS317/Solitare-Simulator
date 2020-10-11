@@ -113,7 +113,7 @@ public class AlgorithmDriver {
 	}
 
 	/**
-	 * check the first card of each tableau stack for playable cards on the foundation and play them
+	 * check the first card of each tableau stack for playable cards on the foundation and play them. will only move one card to foundation per method call.
 	 * 
 	 * @return  
 	 */
@@ -125,6 +125,7 @@ public class AlgorithmDriver {
 		while (index < tableau.size() && !addedToFoundation) {
 			c = tableau.get(index).peek();
 			if (c != null) {addedToFoundation = toFoundation(c);}
+			
 			
 			if (addedToFoundation) {
 				tableau.get(index).pop();
