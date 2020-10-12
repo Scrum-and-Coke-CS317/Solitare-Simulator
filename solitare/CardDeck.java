@@ -39,8 +39,10 @@ public class CardDeck {
 	
 	public void initialize(){
 		deck.clear();
-		for (String suit:suits) {
-			for (int i = 1 ; i < 14 ; i++) {
+		for (String suit:suits)
+		{
+			for (int i = 1 ; i < 14 ; i++)
+			{
 				Card c = new Card(i, suit);
 				cards.add(c);
 			}

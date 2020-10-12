@@ -1,6 +1,7 @@
 package solitare;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class driver 
@@ -11,7 +12,8 @@ public class driver
 	private static ArrayList<Stack<Card>> tableau = new ArrayList<Stack<Card>>(7);
 	//make foundation
 	private static ArrayList<Stack<Card>> foundation = new ArrayList<Stack<Card>>(4);
-	private static WasteDeck waste = new WasteDeck();
+	//private static WasteDeck waste = new WasteDeck();
+	private static Stack<Card> wd = new Stack<Card>();
 	//count cards in foundation
 	private static int clubCount = 1;
 	private static int diamondCount = 1;
@@ -21,74 +23,144 @@ public class driver
 	
  public static void main(String[] args) throws Exception 
  	{
-	 	//initialize deck
-		cardDeck.initialize();
-		//initialize foundation
-		for(int i = 0; i < 4; i++)
+	 	Scanner scan = new Scanner(System.in);
+		System.out.print("Number of games: ");
+		int numGames = scan.nextInt();
+		scan.close();
+		
+		int countWins = 0;
+		for(int i = 0; i < numGames; i++)
 		{
-			Stack<Card> s = new Stack<Card>();
-			foundation.add(s);
-		}
-		
-		//make tableau 
-		//ArrayList of Stack<Card>
-		//say a prayer that this works
-		for(int i = 0; i < 7; i++)
-		{
-			Stack<Card> s = new Stack<Card>();
-			tableau.add(s);
-			//number of cards per stack
-			for (int ii = 0; ii < i+1; ii++)
-			{
-				Card c = cardDeck.draw();
-				if (ii != i)
-					c.setHidden(true); //only last card shows
-				tableau.get(i).add(c);
-			}
-		}
-		
-		//test here
-		System.out.println("Preconditions:");
-		print(tableau);
-		print(foundation);
-		
-		//works better if you let it go a few times before adding cards
-		for (int i = 0; i < 10; i++)
-			playTableauCards();
-		
-		for (int i = 0; i < 3; i++)						//num of times ran
-		{
-			for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
-			{
-			//current card from deck and play
-			Card current = cardDeck.draw();
-			if (play(cardDeck.draw(), false) == false)
-				waste.discard(current);
+			if (solitaire())
+				countWins++;
 			
-			if(waste.getDeckSize() != 0)
-				play(waste.draw(), false);
-
-			for (int iii = 0; iii < 4; iii++)
-				playTableauCards();
-		
-			if(waste.getDeckSize() != 0)
-				play(waste.draw(), false);
-				
-			}
-
-			System.out.println("-------------Resetting the deck");
-			cardDeck = waste.reset();
+			cardDeck = new CardDeck();
+			tableau = new ArrayList<Stack<Card>>(7);
+			foundation = new ArrayList<Stack<Card>>(4);
+			wd = new Stack<Card>();
+			
+			clubCount = 1;           
+			diamondCount = 1;        
+			heartCount = 1;          
+			spadeCount = 1;
+			
 		}
 		
-		//show results
-		//Good luck figuring this part out
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println("Done-----");
-		print(tableau);
-		print(foundation);
-		
+		System.out.println(countWins + " wins");
+ 	}
+ 
+ 	public static boolean solitaire() throws Exception
+ 	{
+ 		//initialize deck
+ 				cardDeck.initialize();
+ 				//initialize foundation
+ 				for(int i = 0; i < 4; i++)
+ 				{
+ 					Stack<Card> s = new Stack<Card>();
+ 					foundation.add(s);
+ 				}
+ 				
+ 				//make tableau 
+ 				//ArrayList of Stack<Card>
+ 				//say a prayer that this works
+ 				for(int i = 0; i < 7; i++)
+ 				{
+ 					Stack<Card> s = new Stack<Card>();
+ 					tableau.add(s);
+ 					//number of cards per stack
+ 					for (int ii = 0; ii < i+1; ii++)
+ 					{
+ 						Card c = cardDeck.draw();
+ 						if (ii != i)
+ 							c.setHidden(true); //only last card shows
+ 						tableau.get(i).add(c);
+ 					}
+ 				}
+ 				
+ 				//test here
+ 				System.out.println("Preconditions:");
+ 				print(tableau);
+ 				print(foundation);
+ 				
+ 				//works better if you let it go a few times before adding cards
+ 				for (int i = 0; i < 10; i++)
+ 					playTableauCards();
+ 				
+ 				for (int i = 0; i < 3; i++)						//num of times ran
+ 				{
+ 					for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
+ 					{
+ 					//current card from deck and play
+ 					Card current = cardDeck.draw();
+ 					if (play(cardDeck.draw(), false) == false)
+ 						wd.add(current);
+ 						//waste.discard(current);
+ 					
+ 					if(wd.size() != 0)
+ 						if(play(wd.peek(), false))
+ 						{
+ 							wd.pop();
+ 						}
+ 							
+
+ 					for (int iii = 0; iii < 4; iii++)
+ 						playTableauCards();
+ 				
+ 					if(wd.size() != 0)
+ 						if(play(wd.peek(), false))
+ 						{
+ 							wd.pop();
+ 						}
+ 						
+ 					}
+
+ 					System.out.println("-------------Resetting the deck");
+ 					//cardDeck = waste.reset();
+ 					
+ 					//reset the deck
+ 					for(int iter = 0; iter < wd.size() -1; iter++ )
+ 					{
+ 						cardDeck.add(wd.elementAt(iter));
+ 					}
+ 				}
+ 				
+ 				//check win
+ 				
+ 				//show results
+ 				//Good luck figuring this part out
+ 				System.out.println();
+ 				System.out.println();
+ 				System.out.println();
+ 				System.out.println("Done-----");
+ 				print(tableau);
+ 				print(foundation);
+ 				
+ 				if(checkIfWon())
+ 				{
+ 					System.out.println("Won");
+ 					return true;
+ 				}
+ 				else
+ 				{
+ 					System.out.println("You lost.");
+ 					return false;
+ 				}
+ 				
+ 	}
+ 
+ 	/**
+ 	 * check if won
+ 	 */
+ 	public static boolean checkIfWon()
+ 	{
+ 		if(foundation.get(0).size() == 13 && foundation.get(1).size() == 13 &&
+ 				foundation.get(2).size() == 13 && foundation.get(3).size() == 13)
+ 		{
+ 			return true;
+ 		}
+ 		else
+ 			return false;
+
  	}
  
  	/**
@@ -98,10 +170,10 @@ public class driver
  	 */
  	private static boolean play(Card c, boolean fromTableau)
  	{
- 		if (fromTableau)
- 			System.out.println("   Play Card from Tableau: " + c.toString());
- 		else
- 			System.out.println("   Play Card: " + c.toString());
+		/*
+		 * if (fromTableau) System.out.println("   Play Card from Tableau: " +
+		 * c.toString()); else System.out.println("   Play Card: " + c.toString());
+		 */
  		
  		//check if can be added to a foundation
  		if(toFoundation(c))
