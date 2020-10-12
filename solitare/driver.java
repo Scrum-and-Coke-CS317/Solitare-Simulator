@@ -31,6 +31,7 @@ public class driver
 		int countWins = 0;
 		for(int i = 0; i < numGames; i++)
 		{
+			System.out.println("***************************\n****** GAME NUMBER "+i+" ******\n***************************\n");
 			if (solitaire())
 				countWins++;
 			
@@ -270,7 +271,7 @@ public class driver
  	private static void playTableauCards()
  	{
  		//for each of the 7 stacks in tableau
- 		for(int i = 0; i < tableau.size(); i++)
+ 		for(int i = tableau.size(); i < 0; i--)
 		{
  			//make sure it's not empty
  			if (! tableau.get(i).isEmpty())
