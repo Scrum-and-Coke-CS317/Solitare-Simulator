@@ -177,16 +177,59 @@ class AlgorithmDriverTest {
 		//tests begin. must check method return value, suit and value of top foundation card, make sure card is removed from its position in tableau 
 		//move club 1 to foundation
 		boolean result = AlgorithmDriver.tableauToFoundation(); 
+		Assert.assertTrue("show club foundation is initially empty", AlgorithmDriver.foundation.get(0).empty());
+		Assert.assertTrue("return = true b/c club1 is added to foundation", result);
+		Assert.assertTrue("show foundation for clubs is no longer empty", !AlgorithmDriver.foundation.get(0).empty());
+		Assert.assertTrue("make sure club1 suit is on top of club foundation", club1.getSuit().equals(AlgorithmDriver.foundation.get(0).peek().getSuit()));
+		Assert.assertTrue("make sure club1 value is on top of club foundation", club1.getValue() == (AlgorithmDriver.foundation.get(0).peek().getValue()));
+		Assert.assertTrue("club1 removed from the tableau", AlgorithmDriver.tableau.get(0).empty());
 		
 		//move diamond1 to foundation
+		result = AlgorithmDriver.tableauToFoundation();
+		Assert.assertTrue("return = true b/c diamond1 is added to foundation", result);
+		Assert.assertTrue("make sure diamond1 suit is on top of diamond foundation", diamond1.getSuit().equals(AlgorithmDriver.foundation.get(1).peek().getSuit()));
+		Assert.assertTrue("make sure diamond1 value is on top of diamond foundation", diamond1.getValue() == (AlgorithmDriver.foundation.get(1).peek().getValue()));
+		Assert.assertTrue("diamond1 place in tableau no longer has equal suit", !diamond1.getSuit().equals(AlgorithmDriver.tableau.get(1).peek().getSuit()));
+		Assert.assertTrue("diamond1 place in tableau no longer has equal value", diamond1.getValue() != AlgorithmDriver.tableau.get(1).peek().getValue());
 		
 		//move club2 to foundation
+		result = AlgorithmDriver.tableauToFoundation();
+		Assert.assertTrue("return = true b/c club2 is added to foundation", result);
+		Assert.assertTrue("make sure club2 suit is on top of club foundation", club2.getSuit().equals(AlgorithmDriver.foundation.get(0).peek().getSuit()));
+		Assert.assertTrue("make sure club2 value is on top of club foundation", club2.getValue() == (AlgorithmDriver.foundation.get(0).peek().getValue()));
+		Assert.assertTrue("club2 place in tableau is now empty", AlgorithmDriver.tableau.get(1).empty());
 		
 		//move heart4 to foundation
+		result = AlgorithmDriver.tableauToFoundation();
+		Assert.assertTrue("return = true b/c heart4 is added to foundation", result);
+		Assert.assertTrue("make sure heart4 suit is on top of heart foundation", heart4.getSuit().equals(AlgorithmDriver.foundation.get(2).peek().getSuit()));
+		Assert.assertTrue("make sure heart4 value is on top of heart foundation", heart4.getValue() == (AlgorithmDriver.foundation.get(2).peek().getValue()));
+		Assert.assertTrue("heart4 place in tableau is now empty", AlgorithmDriver.tableau.get(3).empty());
 		
 		//move spade 11 to foundation
+		result = AlgorithmDriver.tableauToFoundation();
+		Assert.assertTrue("return = true b/c spade11 is added to foundation", result);
+		Assert.assertTrue("make sure spade11 suit is on top of spade foundation", spade11.getSuit().equals(AlgorithmDriver.foundation.get(3).peek().getSuit()));
+		Assert.assertTrue("make sure spade11 value is on top of spade foundation", spade11.getValue() == (AlgorithmDriver.foundation.get(3).peek().getValue()));
+		Assert.assertTrue("spade11 place in tableau is now empty", AlgorithmDriver.tableau.get(6).empty());
 		
-		//try to move to foundation after all is empty
+		//try to move to foundation after all is empty. tableau should still be empty. Check foundation top cards to make sure they have same suit and value as before.
+		result = AlgorithmDriver.tableauToFoundation();
+		Assert.assertTrue("return = false b/c tableau is empty and cannot move anything else to foundations", result);
+		for (int i = 0; i < AlgorithmDriver.tableau.size(); i++) {
+			Assert.assertTrue("tableau is now filled with empty piles", AlgorithmDriver.tableau.get(i).empty());
+		}
+		Assert.assertTrue("make sure diamond1 suit is still on top of diamond foundation", diamond1.getSuit().equals(AlgorithmDriver.foundation.get(1).peek().getSuit()));
+		Assert.assertTrue("make sure diamond1 value is still on top of diamond foundation", diamond1.getValue() == (AlgorithmDriver.foundation.get(1).peek().getValue()));
+		
+		Assert.assertTrue("make sure club2 suit is still on top of club foundation", club2.getSuit().equals(AlgorithmDriver.foundation.get(0).peek().getSuit()));
+		Assert.assertTrue("make sure club2 value is still on top of club foundation", club2.getValue() == (AlgorithmDriver.foundation.get(0).peek().getValue()));
+		
+		Assert.assertTrue("make sure heart4 suit is still on top of heart foundation", heart4.getSuit().equals(AlgorithmDriver.foundation.get(2).peek().getSuit()));
+		Assert.assertTrue("make sure heart4 value is still on top of heart foundation", heart4.getValue() == (AlgorithmDriver.foundation.get(2).peek().getValue()));
+		
+		Assert.assertTrue("make sure spade11 suit is still on top of spade foundation", spade11.getSuit().equals(AlgorithmDriver.foundation.get(3).peek().getSuit()));
+		Assert.assertTrue("make sure spade11 value is still on top of spade foundation", spade11.getValue() == (AlgorithmDriver.foundation.get(3).peek().getValue()));
 
 		//End Result: should move all cards from this new setup to respective foundations. clubs should have c1 and c2, diamonds should have d1, hearts should have h4 and h3, and 
 		//spades should have s11 and s10.
