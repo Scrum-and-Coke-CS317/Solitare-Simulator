@@ -1,6 +1,7 @@
 package solitare;
 
 import java.util.ArrayList;
+import java.util.Queue;
 /**
  * card deck class
  * 
@@ -57,6 +58,13 @@ public class WasteDeck
 	public void clear()
 	{
 		deck.clear();
+	}
+	
+	/**
+	 * Used for testing purposes
+	 */
+	public Stack<Card> getRemainingCards(){
+		return deck;
 	}
 	
 	public void printDeck() 

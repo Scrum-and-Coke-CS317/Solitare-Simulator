@@ -57,6 +57,13 @@ public class CardDeck {
 		}
 	}
 	
+	/**
+	 * Used for testing purposes
+	 */
+	public Queue<Card> getRemainingCards(){
+		return deck;
+	}
+	
 	public void printDeck() {
 		for (Card card:deck) {
 			System.out.println(card.toString());

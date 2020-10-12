@@ -86,8 +86,7 @@ public class AlgorithmDriver {
 	public static void setup() throws Exception {
 		//initialize deck
 		cardDeck.initialize();
-		//initialize waste
-		wasteDeck.initialize();
+		//note that wasteDeck is created
 		//initialize foundation
 		for(int i = 0; i < 4; i++)
 		{
@@ -117,25 +116,27 @@ public class AlgorithmDriver {
 	 * 
 	 * @return  
 	 */
-	public static boolean tableauToFoundation() {
+	public static int tableauToFoundation() {
 		int index = 0;
 		boolean addedToFoundation = false;
 		Card c;
-		
+
 		while (index < tableau.size() && !addedToFoundation) {
 			c = tableau.get(index).peek();
-			if (c != null) {addedToFoundation = toFoundation(c);}
-			
-			
+			if (c != null) {
+				addedToFoundation = toFoundation(c);
+			}
+
+
 			if (addedToFoundation) {
 				tableau.get(index).pop();
 				stuckDeckCounter = 0;
-				}
-			
+			}
+
 			index++;
 		}
-			
-		return addedToFoundation;
+
+		return 2;
 	}
 
 	/**
