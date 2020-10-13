@@ -1,42 +1,26 @@
 package solitare;
 
+//use a queue or something??
+import java.util.*;
+
 /**
  * card deck class
  * 
  * @author scrum-and-coke
  */
-//use a queue or something??
-import java.util.*;
-
-
 public class CardDeck {
 	
-	public ArrayList<Card> cards = new ArrayList<Card>();
+	//this is the deck that is used to hold cards
 	public Queue<Card> deck = new LinkedList<Card>();
+	//This is used when shuffling cards in the initialization method
+	public ArrayList<Card> cards = new ArrayList<Card>();
 	
 	String[] suits = {"spade", "heart", "diamond", "club"};
 	
-	
-	public Card draw() throws Exception
-	{
-		if (deck.isEmpty())
-			throw new Exception("deck isEmpty with 0 cards -- is it initialized?");
-		return deck.poll();
-	}
-	
-	public void add(Card c)
-	{
-		deck.add(c);
-	}
-	
-	public void discard(Card c){
-		deck.add(c);
-	}
-	
-	public int getDeckSize(){
-		return deck.size();
-	}
-	
+	/**
+	 * After constructing an empty CardDeck, this method adds 52 cards randomly
+	 * 
+	 */
 	public void initialize(){
 		deck.clear();
 		for (String suit:suits)
@@ -58,12 +42,52 @@ public class CardDeck {
 	}
 	
 	/**
-	 * Used for testing purposes
+	 * This draws a card from the top of the deck and removes it.
+	 * @return the card removed
+	 * @throws Exception
+	 */
+	public Card draw() throws Exception
+	{
+		if (deck.isEmpty())
+			throw new Exception("deck isEmpty with 0 cards -- is it initialized?");
+		return deck.poll();
+	}
+	
+	/**
+	 * This adds a card given to the bottom of the deck
+	 * @param c
+	 */
+	public void add(Card c)
+	{
+		deck.add(c);
+	}
+	
+	/**
+	 * This adds a card given to the bottom of the deck
+	 * @param c
+	 */
+	public void discard(Card c){
+		deck.add(c);
+	}
+	
+	/**
+	 * This returns the size of the deck
+	 * @return
+	 */
+	public int getDeckSize(){
+		return deck.size();
+	}
+	
+	/**
+	 * This returns the remaining cards in the deck
 	 */
 	public Queue<Card> getRemainingCards(){
 		return deck;
 	}
 	
+	/**
+	 * This is a printed off version of all the cards in the deck
+	 */
 	public void printDeck() {
 		for (Card card:deck) {
 			System.out.println(card.toString());
