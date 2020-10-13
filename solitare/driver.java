@@ -21,6 +21,7 @@ public class driver
 	private static int spadeCount = 1;
 
 
+	
 	public static void main(String[] args) throws Exception 
 	{
 		Scanner scan = new Scanner(System.in);
@@ -50,6 +51,10 @@ public class driver
 		System.out.println(countWins + " wins");
 	}
 
+	
+	
+	
+	
 	public static boolean solitaire() throws Exception
 	{
 		//initialize deck
@@ -83,38 +88,30 @@ public class driver
 		print(tableau);
 		print(foundation);
 		System.out.println("Deck: ");
-		//cardDeck.printDeck();
-
+		cardDeck.printDeck();
+		System.out.println();
+		
 		//works better if you let it go a few times before adding cards
 		for (int i = 0; i < 10; i++)
 			playTableauCards();
 
 		for (int i = 0; i < 3; i++)						//num of times ran
 		{
-			for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
+			for(int ii = 0; ii < cardDeck.getDeckSize() - 1; ii++)
 			{
 				//current card from deck and play
 				Card current = cardDeck.draw();
-				if (play(cardDeck.draw(), false) == false)
+				if (play(current, false) == false)
 					wd.add(current);
-				//waste.discard(current);
 
 				if(wd.size() != 0)
 					if(play(wd.peek(), false))
 					{
 						wd.pop();
 					}
-
 
 				for (int iii = 0; iii < 4; iii++)
 					playTableauCards();
-
-				if(wd.size() != 0)
-					if(play(wd.peek(), false))
-					{
-						wd.pop();
-					}
-
 			}
 			
 			for (int i1 = 0; i1 < 10; i1++)
@@ -122,13 +119,10 @@ public class driver
 
 			System.out.println("-------------Resetting the deck");
 			//cardDeck = waste.reset();
-			
-			//cardDeck.printDeck();
 			//reset the deck
-			for(int iter = 0; iter < wd.size(); iter++ )
+			for(int iter = 0; iter < wd.size() - 1; iter++)
 			{
-				System.out.println("reset");
-				System.out.println(wd.toString());
+				System.out.println(wd.elementAt(iter).toString());
 				cardDeck.add(wd.elementAt(iter));
 			}
 		}
@@ -157,6 +151,10 @@ public class driver
 		}
 
 	}
+	
+	
+	
+	
 
 	/**
 	 * check if won
@@ -170,7 +168,6 @@ public class driver
 		}
 		else
 			return false;
-
 	}
 
 	/**
@@ -178,14 +175,18 @@ public class driver
 	 * 
 	 * @param c card to play
 	 */
+	
+	
+	
+	
 	private static boolean play(Card c, boolean fromTableau)
 	{
 		
-		 if (fromTableau) 
-			 System.out.println("   Play Card from Tableau: " +
-				 c.toString()); 
-		 else 
-			 System.out.println("   Play Card: " + c.toString());
+//		 if (fromTableau) 
+//			 System.out.println("   Play Card from Tableau: " +
+//				 c.toString()); 
+//		 else 
+//			 System.out.println("   Play Card: " + c.toString());
 
 
 		//check if can be added to a foundation
@@ -197,6 +198,10 @@ public class driver
 		else
 			return false;
 	}
+	
+	
+	
+	
 	
 	
 	/**
@@ -228,6 +233,10 @@ public class driver
 		
 		return false;
 	}
+	
+	
+	
+	
 
 	/**
 	 * adds card to foundation
@@ -274,6 +283,10 @@ public class driver
 		}
 	}
 
+	
+	
+	
+	
 	/**
 	 * try to play cards down on tableau and unhide card under
 	 * this method is a terrible mess and I hate it
@@ -291,7 +304,7 @@ public class driver
 				int count = tableau.get(i).size();
 
 				//find highest card in stack that's face up
-				for(int faceUp = tableau.get(i).size() - 1; 0 < count; faceUp--)
+				for(int faceUp = tableau.get(i).size() -1; 0 < count; faceUp--)
 				{
 					c = tableau.get(i).elementAt(faceUp);
 					if(c.getHidden() == true)
@@ -302,13 +315,12 @@ public class driver
 				} 					
 
 				//go back down the cards to try moving them
-				while(count < tableau.get(i).size() - 1)
+				while(count < tableau.get(i).size())
 				{
 					c = tableau.get(i).elementAt(count);
 					int playable = isPlayable(c);
 					if(playable > -1)
 					{
-						System.out.println("Here------------------------------");
 						Stack<Card> toMove = new Stack<Card>();
 						//remove cards from current place
 						while(count < tableau.get(i).size())
@@ -338,6 +350,10 @@ public class driver
 	}
 
 
+	
+	
+	
+	
 	/**
 	 * Helper method to determine if a card is playable somewhere in tableau
 	 * 
@@ -358,13 +374,13 @@ public class driver
 				temp = tableau.get(i).peek();
 				if(! temp.getColor().equals(c.getColor()) && temp.getValue()-1 == c.getValue())
 				{
-					System.out.println(c.toString() + " is playable from tableau");
+					//System.out.println(c.toString() + " is playable from tableau");
 					return i;
 				}
 			}
 			else if(tableau.get(i).isEmpty() && c.getValue() == 13)
 			{
-				System.out.println(c.toString() + " is playable from tableau");
+				//System.out.println(c.toString() + " is playable from tableau");
 				return i;
 			}
 		}
@@ -372,6 +388,10 @@ public class driver
 		return -1; //-1 if can't be played
 	}
 
+	
+	
+	
+	
 
 	/**
 	 * Print big things
