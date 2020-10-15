@@ -285,6 +285,7 @@ public class driver
 	 */
 	private static void playTableauCards()
 	{
+		cardDeck.chechDupes(290);
 		//for each of the 7 stacks in tableau
 		for(int i = 0 ; i < tableau.size(); i++)
 		{

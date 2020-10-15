@@ -94,5 +94,21 @@ public class CardDeck {
 		}
 	}
 	
+	public void chechDupes(int i)
+	{
+		for(Card c : deck)
+		{
+			for(Card in : deck)
+			{
+				if(in.equals(c))
+				{
+					System.out.println("There's dupes in here");
+					System.out.println("Line: " + i);
+					//throw new Exception("Duplicate Cards");
+				}
+			}
+		}
+	}
+
 
 }

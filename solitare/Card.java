@@ -140,4 +140,12 @@ public class Card
 		return s;
 	}
 	
+	public boolean equals(Card c)
+	{
+		if (c.getValue() == this.value && c.getSuit().equals(this.suit))
+			return true;
+		else
+			return false;
+	}
+	
 }
