@@ -97,15 +97,14 @@ public class driver
 
 		for (int i = 0; i < 3; i++)						//num of times ran
 		{
-			for(int ii = 0; ii < cardDeck.getDeckSize() - 1; ii++)
+			for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
 			{
-				//current card from deck and play
 				Card current = cardDeck.draw();
-				if (play(current, false) == false)
+				if (play(current) == false)
 					wd.add(current);
 
 				if(wd.size() != 0)
-					if(play(wd.peek(), false))
+					if(play(wd.peek()))
 					{
 						wd.pop();
 					}
@@ -120,7 +119,7 @@ public class driver
 			System.out.println("-------------Resetting the deck");
 			//cardDeck = waste.reset();
 			//reset the deck
-			for(int iter = 0; iter < wd.size() - 1; iter++)
+			for(int iter = 0; iter < wd.size(); iter++)
 			{
 				System.out.println(wd.elementAt(iter).toString());
 				cardDeck.add(wd.elementAt(iter));
@@ -169,26 +168,19 @@ public class driver
 		else
 			return false;
 	}
+	
+	
+	
+	
+	
 
 	/**
 	 * Plays card if possible or discards
 	 * 
 	 * @param c card to play
 	 */
-	
-	
-	
-	
-	private static boolean play(Card c, boolean fromTableau)
+	private static boolean play(Card c)
 	{
-		
-//		 if (fromTableau) 
-//			 System.out.println("   Play Card from Tableau: " +
-//				 c.toString()); 
-//		 else 
-//			 System.out.println("   Play Card: " + c.toString());
-
-
 		//check if can be added to a foundation
 		if(toFoundation(c))
 			return true;
@@ -230,7 +222,6 @@ public class driver
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
@@ -295,7 +286,7 @@ public class driver
 	private static void playTableauCards()
 	{
 		//for each of the 7 stacks in tableau
-		for(int i = 0 ; i < tableau.size() -1 ; i++)
+		for(int i = 0 ; i < tableau.size(); i++)
 		{
 			//make sure it's not empty
 			if (! tableau.get(i).isEmpty())
@@ -304,7 +295,7 @@ public class driver
 				int count = tableau.get(i).size();
 
 				//find highest card in stack that's face up
-				for(int faceUp = tableau.get(i).size() -1; 0 < count; faceUp--)
+				for(int faceUp = tableau.get(i).size() - 1; 0 < count; faceUp--)
 				{
 					c = tableau.get(i).elementAt(faceUp);
 					if(c.getHidden() == true)
