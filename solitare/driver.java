@@ -123,6 +123,7 @@ public class driver
 			{
 				System.out.println(wd.elementAt(iter).toString());
 				cardDeck.add(wd.elementAt(iter));
+				wd.remove(iter);
 			}
 		}
 
