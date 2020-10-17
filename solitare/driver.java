@@ -9,9 +9,9 @@ public class driver
 	//make deck to draw from
 	private static CardDeck cardDeck = new CardDeck();
 	//make tableau
-	private static ArrayList<Stack<Card>> tableau = new ArrayList<Stack<Card>>(7);
+	private static ArrayList<Stack<Card>> tableau = new ArrayList<Stack<Card>>();
 	//make foundation
-	private static ArrayList<Stack<Card>> foundation = new ArrayList<Stack<Card>>(4);
+	private static ArrayList<Stack<Card>> foundation = new ArrayList<Stack<Card>>();
 	//private static WasteDeck waste = new WasteDeck();
 	private static Stack<Card> wd = new Stack<Card>();
 	//count cards in foundation
@@ -21,7 +21,7 @@ public class driver
 	private static int spadeCount = 1;
 
 
-	
+
 	public static void main(String[] args) throws Exception 
 	{
 		Scanner scan = new Scanner(System.in);
@@ -51,10 +51,10 @@ public class driver
 		System.out.println(countWins + " wins");
 	}
 
-	
-	
-	
-	
+
+
+
+
 	public static boolean solitaire() throws Exception
 	{
 		//initialize deck
@@ -83,6 +83,8 @@ public class driver
 			}
 		}
 
+		System.out.println("Number of cards: " + countCards());
+
 		//test here
 		System.out.println("Preconditions:");
 		print(tableau);
@@ -90,7 +92,7 @@ public class driver
 		System.out.println("Deck: ");
 		cardDeck.printDeck();
 		System.out.println();
-		
+
 		//works better if you let it go a few times before adding cards
 		for (int i = 0; i < 10; i++)
 			playTableauCards();
@@ -112,8 +114,8 @@ public class driver
 				for (int iii = 0; iii < 4; iii++)
 					playTableauCards();
 			}
-			
-			for (int i1 = 0; i1 < 10; i1++)
+
+			for (int i1 = 0; i1 < 16; i1++)
 				playTableauCards();
 
 			System.out.println("-------------Resetting the deck");
@@ -137,7 +139,8 @@ public class driver
 		print(tableau);
 		print(foundation);
 		System.out.println("Deck: ");
-		//cardDeck.printDeck();
+		cardDeck.printDeck();
+		System.out.println("Number of cards: " + countCards());
 
 		if(checkIfWon())
 		{
@@ -151,10 +154,10 @@ public class driver
 		}
 
 	}
-	
-	
-	
-	
+
+
+
+
 
 	/**
 	 * check if won
@@ -169,11 +172,11 @@ public class driver
 		else
 			return false;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	/**
 	 * Plays card if possible or discards
@@ -191,12 +194,12 @@ public class driver
 		else
 			return false;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	/**
 	 * try to add card to tableau
 	 * 
@@ -225,10 +228,10 @@ public class driver
 		}
 		return false;
 	}
-	
-	
-	
-	
+
+
+
+
 
 	/**
 	 * adds card to foundation
@@ -275,10 +278,10 @@ public class driver
 		}
 	}
 
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * try to play cards down on tableau and unhide card under
 	 * this method is a terrible mess and I hate it
@@ -286,7 +289,6 @@ public class driver
 	 */
 	private static void playTableauCards()
 	{
-		cardDeck.chechDupes(290);
 		//for each of the 7 stacks in tableau
 		for(int i = 0 ; i < tableau.size(); i++)
 		{
@@ -343,10 +345,10 @@ public class driver
 	}
 
 
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Helper method to determine if a card is playable somewhere in tableau
 	 * 
@@ -381,10 +383,10 @@ public class driver
 		return -1; //-1 if can't be played
 	}
 
-	
-	
-	
-	
+
+
+
+
 
 	/**
 	 * Print big things
@@ -406,4 +408,25 @@ public class driver
 			System.out.println("------" + '\n');
 		}
 	}
+
+
+	private static int countCards()
+	{
+		int count = 0;
+		for(int i = 0; i < tableau.size(); i++)
+		{
+			for(Card c : tableau.get(i))
+				count++;
+		}
+		for(int i = 0; i < foundation.size(); i++)
+		{
+			for(Card c : foundation.get(i))
+				count++;
+		}
+
+		return count + cardDeck.getDeckSize() + wd.size();
+
+	}
 }
+
+

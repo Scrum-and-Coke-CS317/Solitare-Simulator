@@ -46,10 +46,8 @@ public class CardDeck {
 	 * @return the card removed
 	 * @throws Exception
 	 */
-	public Card draw() throws Exception
+	public Card draw()
 	{
-		if (deck.isEmpty())
-			throw new Exception("deck isEmpty with 0 cards -- is it initialized?");
 		return deck.poll();
 	}
 	
@@ -93,22 +91,4 @@ public class CardDeck {
 			System.out.println(card.toString());
 		}
 	}
-	
-	public void chechDupes(int i)
-	{
-		for(Card c : deck)
-		{
-			for(Card in : deck)
-			{
-				if(in.equals(c))
-				{
-					//System.out.println("There's dupes in here");
-					//System.out.println("Line: " + i);
-					//throw new Exception("Duplicate Cards");
-				}
-			}
-		}
-	}
-
-
 }
