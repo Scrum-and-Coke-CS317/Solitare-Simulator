@@ -119,13 +119,12 @@ public class driver
 				playTableauCards();
 
 			System.out.println("-------------Resetting the deck");
-			//cardDeck = waste.reset();
+			
 			//reset the deck
-			for(int iter = 0; iter < wd.size(); iter++)
+			for (int iter = 0; iter < wd.size(); iter++)
 			{
 				System.out.println(wd.elementAt(iter).toString());
-				cardDeck.add(wd.elementAt(iter));
-				wd.remove(iter);
+				cardDeck.add(wd.pop());
 			}
 		}
 
@@ -140,6 +139,9 @@ public class driver
 		print(foundation);
 		System.out.println("Deck: ");
 		cardDeck.printDeck();
+		System.out.println("waste: ");
+		for (Card c : wd)
+			System.out.println(c);
 		System.out.println("Number of cards: " + countCards());
 
 		if(checkIfWon())
@@ -379,7 +381,6 @@ public class driver
 				return i;
 			}
 		}
-
 		return -1; //-1 if can't be played
 	}
 
@@ -409,7 +410,12 @@ public class driver
 		}
 	}
 
-
+	
+	/**
+	 * Get the number of cards to test
+	 * 
+	 * @return num cards
+	 */
 	private static int countCards()
 	{
 		int count = 0;
