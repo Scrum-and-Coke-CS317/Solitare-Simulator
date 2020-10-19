@@ -20,6 +20,10 @@ public class driver
 	private static int heartCount = 1;
 	private static int spadeCount = 1;
 
+	//set printMode to 1 to print diagnostic data/the deck/etc/ 
+	//if printMode is 0, it will only print "you win/you loose" info at the end of the game
+	static int printMode = 0;
+
 
 
 	public static void main(String[] args) throws Exception 
@@ -32,7 +36,8 @@ public class driver
 		int countWins = 0;
 		for(int i = 0; i < numGames; i++)
 		{
-			System.out.println("***************************\n****** GAME NUMBER "+i+" ******\n***************************\n");
+			if (printMode == 1)
+				System.out.println("***************************\n****** GAME NUMBER "+i+" ******\n***************************\n");
 			if (solitaire())
 				countWins++;
 
@@ -83,15 +88,18 @@ public class driver
 			}
 		}
 
-		System.out.println("Number of cards: " + countCards());
+		if (printMode == 1)
+			System.out.println("Number of cards: " + countCards());
 
-		//test here
-		System.out.println("Preconditions:");
-		print(tableau);
-		print(foundation);
-		System.out.println("Deck: ");
-		cardDeck.printDeck();
-		System.out.println();
+		if (printMode == 1) {
+			//test here
+			System.out.println("Preconditions:");
+			print(tableau);
+			print(foundation);
+			System.out.println("Deck: ");
+			cardDeck.printDeck();
+			System.out.println();
+		}
 
 		//works better if you let it go a few times before adding cards
 		for (int i = 0; i < 32; i++)
@@ -118,7 +126,8 @@ public class driver
 			for (int i1 = 0; i1 < 2048; i1++)
 				playTableauCards();
 
-			System.out.println("-------------Resetting the deck");
+			if (printMode == 1)
+				System.out.println("-------------Resetting the deck");
 			for (int iter = 0; iter < wd.size(); iter++)
 			{
 				cardDeck.add(wd.elementAt(iter));
@@ -129,23 +138,26 @@ public class driver
 
 		//show results
 		//Good luck figuring this part out
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println("Done-----");
-		print(tableau);
-		print(foundation);
-		System.out.println("Deck: ");
-		cardDeck.printDeck();
-
+		if (printMode == 1) {
+			System.out.println();
+			System.out.println();
+			System.out.println();
+			System.out.println("Done-----");
+			print(tableau);
+			print(foundation);
+			System.out.println("Deck: ");
+			cardDeck.printDeck();
+		}
 		if(checkIfWon())
 		{
-			System.out.println("Won");
+			if (printMode == 1)
+				System.out.println("Won");
 			return true;
 		}
 		else
 		{
-			System.out.println("You lost.");
+			if (printMode == 1)
+				System.out.println("You lost.");
 			return false;
 		}
 
@@ -404,7 +416,7 @@ public class driver
 		}
 	}
 
-	
+
 	/**
 	 * Get the number of cards to test
 	 * 
