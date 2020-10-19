@@ -88,11 +88,9 @@ public class driver
 			}
 		}
 
-		if (printMode == 1)
-			System.out.println("Number of cards: " + countCards());
-
 		if (printMode == 1) {
 			//test here
+			System.out.println("Number of cards: " + countCards());
 			System.out.println("Preconditions:");
 			print(tableau);
 			print(foundation);
@@ -148,6 +146,9 @@ public class driver
 			System.out.println("Deck: ");
 			cardDeck.printDeck();
 		}
+		
+		
+		
 		if(checkIfWon())
 		{
 			if (printMode == 1)
@@ -172,13 +173,24 @@ public class driver
 	 */
 	public static boolean checkIfWon()
 	{
-		if(foundation.get(0).size() == 13 && foundation.get(1).size() == 13 &&
-				foundation.get(2).size() == 13 && foundation.get(3).size() == 13)
+		for(int i = 0; i < tableau.size(); i++)
 		{
-			return true;
+			//Stack<Card> s = ;
+			for (Card c : tableau.get(i))
+			{
+				if(c.getHidden())
+					return false;
+			}
+			
 		}
-		else
-			return false;
+		return true;
+//		
+//		
+//		if(foundation.get(0).size() == 13 && foundation.get(1).size() == 13 &&
+//				foundation.get(2).size() == 13 && foundation.get(3).size() == 13)
+//			return true;
+//		else
+//			return false;
 	}
 
 
@@ -191,13 +203,13 @@ public class driver
 	 * 
 	 * @param c card to play
 	 */
-	private static boolean play(Card c)
+	private static boolean play(Card c)													//********************************************************
 	{
 		//check if can be added to a foundation
-		if(toFoundation(c))
-			return true;
+//		if(toFoundation(c))
+//			return true;
 		//check if can be added to a stack
-		else if(toTableau(c))
+		if(toTableau(c))
 			return true;
 		else
 			return false;
@@ -368,11 +380,11 @@ public class driver
 		for(int i = 0; i < tableau.size(); i++)
 		{
 
-			if(toFoundation(c))
-			{
-				return -2;
-			}
-			else if(!tableau.get(i).isEmpty() && c.getValue() != 13)
+//			if(toFoundation(c))																//******************************************************
+//			{
+//				return -2;
+//			}
+			if(!tableau.get(i).isEmpty() && c.getValue() != 13)
 			{
 				temp = tableau.get(i).peek();
 				if(! temp.getColor().equals(c.getColor()) && temp.getValue()-1 == c.getValue())
