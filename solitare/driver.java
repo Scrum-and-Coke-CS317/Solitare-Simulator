@@ -94,7 +94,7 @@ public class driver
 		System.out.println();
 
 		//works better if you let it go a few times before adding cards
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 32; i++)
 			playTableauCards();
 
 		for (int i = 0; i < 3; i++)						//num of times ran
@@ -111,21 +111,19 @@ public class driver
 						wd.pop();
 					}
 
-				for (int iii = 0; iii < 4; iii++)
+				for (int iii = 0; iii < 32; iii++)
 					playTableauCards();
 			}
 
-			for (int i1 = 0; i1 < 16; i1++)
+			for (int i1 = 0; i1 < 2048; i1++)
 				playTableauCards();
 
 			System.out.println("-------------Resetting the deck");
-			
-			//reset the deck
 			for (int iter = 0; iter < wd.size(); iter++)
 			{
-				System.out.println(wd.elementAt(iter).toString());
-				cardDeck.add(wd.pop());
+				cardDeck.add(wd.elementAt(iter));
 			}
+			wd =  new Stack<Card>();
 		}
 
 
@@ -139,10 +137,6 @@ public class driver
 		print(foundation);
 		System.out.println("Deck: ");
 		cardDeck.printDeck();
-		System.out.println("waste: ");
-		for (Card c : wd)
-			System.out.println(c);
-		System.out.println("Number of cards: " + countCards());
 
 		if(checkIfWon())
 		{
