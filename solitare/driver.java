@@ -23,7 +23,7 @@ public class driver
 
 	//set printMode to 1 to print diagnostic data/the deck/etc/ 
 	//if printMode is 0, it will only print "you win/you loose" info at the end of the game
-	static int printMode = 0;
+	static int printMode = 1;
 
 
 
@@ -113,10 +113,7 @@ public class driver
 		{
 			for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
 			{
-				while(playTableauCards())
-				{
-					
-				}
+				
 				
 				Card current = cardDeck.draw();
 				if (play(current) == false)
