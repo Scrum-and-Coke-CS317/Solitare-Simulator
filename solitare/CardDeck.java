@@ -57,46 +57,46 @@ public class CardDeck {
 	
 	public void winInitialize() {
 		deck.clear();
-		//add all the cards to an arrayList
+		//Hardcode time
+		deck.add(new Card(1, "club"));
+		deck.add(new Card(8, "club"));
+		deck.add(new Card(2, "club"));
+		deck.add(new Card(1, "spade"));
+		deck.add(new Card(9, "club"));
+		deck.add(new Card(3, "club"));
+		deck.add(new Card(6, "spade"));
+		deck.add(new Card(2, "spade"));
+		deck.add(new Card(10, "club"));
+		deck.add(new Card(4, "club"));
+		deck.add(new Card(10, "spade"));
+		deck.add(new Card(7, "spade"));
+		deck.add(new Card(3, "spade"));
+		deck.add(new Card(11, "club"));
+		deck.add(new Card(5, "club"));
+		deck.add(new Card(13, "spade"));
+		deck.add(new Card(11, "spade"));
+		deck.add(new Card(8, "spade"));
+		deck.add(new Card(4, "spade"));
+		deck.add(new Card(12, "club"));
+		deck.add(new Card(6, "club"));
+		deck.add(new Card(1, "diamond"));
+		deck.add(new Card(1, "heart"));
+		deck.add(new Card(12, "spade"));
+		deck.add(new Card(9, "spade"));
+		deck.add(new Card(5, "spade"));
+		deck.add(new Card(13, "club"));	
+		deck.add(new Card(7, "club"));
+		
 		for (String suit:suits)
 		{
 			if (!suit.equals("club") && !suit.equals("spade")) {
-				for (int i = 13 ; i > 1 ; i--) //adds all but the Aces, Spades, and Clubs
+				for (int i = 1 ; i > 13 ; i--) //adds all but the Aces, Spades, and Clubs
 				{
 					Card c = new Card(i, suit);
 					deck.add(c);
 				}
 			}
 		}
-		//Hardcode time
-		deck.add(new Card(7, "club"));
-		deck.add(new Card(13, "club"));
-		deck.add(new Card(5, "spade"));
-		deck.add(new Card(9, "spade"));
-		deck.add(new Card(12, "spade"));
-		deck.add(new Card(1, "heart"));
-		deck.add(new Card(1, "diamond"));
-		deck.add(new Card(6, "club"));
-		deck.add(new Card(12, "club"));
-		deck.add(new Card(4, "spade"));
-		deck.add(new Card(8, "spade"));
-		deck.add(new Card(11, "spade"));
-		deck.add(new Card(13, "spade"));
-		deck.add(new Card(5, "club"));
-		deck.add(new Card(11, "club"));
-		deck.add(new Card(3, "spade"));	
-		deck.add(new Card(7, "spade"));
-		deck.add(new Card(10, "spade"));
-		deck.add(new Card(4, "club"));
-		deck.add(new Card(10, "club"));
-		deck.add(new Card(2, "spade"));
-		deck.add(new Card(6, "spade"));
-		deck.add(new Card(3, "club"));
-		deck.add(new Card(9, "club"));
-		deck.add(new Card(1, "spade"));
-		deck.add(new Card(2, "club"));
-		deck.add(new Card(8, "club"));
-		deck.add(new Card(1, "club"));
 		
 		for (Card card: deck) {
 			System.out.println("" + card.getValue() + card.getSuit());
