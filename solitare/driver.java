@@ -22,15 +22,16 @@ public class driver
 	private static int moves = 0;
 	private static int totalMoves = 0;
 
-	//set printMode to 1 to print diagnostic data/the deck/etc/ 
-	//if printMode is 0, it will only print "you win/you loose" info at the end of the game
-	static int printMode = 0;
-	static int printNumMovesPerGame = 0;
+	//set printMode to true to print diagnostic data/the deck/etc/ 
+	//if printMode is true, it will only print "you win/you loose" info at the end of the game
+	static boolean printMode = false;
+	static boolean printNumMovesPerGame = false;
+	static boolean printProgress = true;
 
-	
-	
 
-	
+
+
+
 
 	public static void main(String[] args) throws Exception 
 	{
@@ -39,17 +40,23 @@ public class driver
 		System.out.print("Number of games: ");
 		int numGames = scan.nextInt();
 		scan.close();
-
+		System.out.println("\n");
 		int countWins = 0;
-		
+
 		for(int i = 0; i < numGames; i++)
 		{
-			if (printMode == 1)
+			if (printProgress) {
+				double progress = ((double)i/(double)numGames);
+				System.out.print("Progress: "+Math.round(progress*100)+"%\r");
+			}
+
+			System.out.flush();
+			if (printMode)
 				System.out.println("***************************\n****** GAME NUMBER "+i+" ******\n***************************\n");
 			if (solitaire())
 				countWins++;
-			
-			if(printMode==1 || printNumMovesPerGame==1)
+
+			if(printMode || printNumMovesPerGame)
 				System.out.println("number of moves for game "+i+": "+moves);
 			cardDeck = new CardDeck();
 			tableau = new ArrayList<Stack<Card>>(7);
@@ -66,18 +73,19 @@ public class driver
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime); 
 		double durationInSeconds = (double)duration / 1_000_000_000.0;
-		
+
 		int avgMoves = totalMoves/numGames;
 		double avgMovesPerSecond = totalMoves/durationInSeconds;
 
 		System.out.println();
+		System.out.println("\n");
 		System.out.println("*** GAME ANALYSIS ***");
 		System.out.println(countWins + " wins of "+numGames+" total games");
 		System.out.println("win percent: "+((double)countWins/(double)numGames)*100+"%");
 		System.out.println("avg number of moves: "+avgMoves);
 		System.out.println("total execution time in seconds: "+durationInSeconds);
 		System.out.println("avg moves per second: "+avgMovesPerSecond);
-		
+
 	}
 
 
@@ -112,7 +120,7 @@ public class driver
 			}
 		}
 
-		if (printMode == 1) {
+		if (printMode) {
 			//test here
 			System.out.println("Number of cards: " + countCards());
 			System.out.println("Preconditions:");
@@ -150,7 +158,7 @@ public class driver
 			for (int i1 = 0; i1 < 2048; i1++)
 				playTableauCards();
 
-			if (printMode == 1)
+			if (printMode)
 				System.out.println("-------------Resetting the deck");
 			for (int iter = 0; iter < wd.size(); iter++)
 			{
@@ -162,7 +170,7 @@ public class driver
 
 		//show results
 		//Good luck figuring this part out
-		if (printMode == 1) {
+		if (printMode) {
 			System.out.println();
 			System.out.println();
 			System.out.println();
@@ -172,18 +180,18 @@ public class driver
 			System.out.println("Deck: ");
 			cardDeck.printDeck();
 		}
-		
-		
-		
+
+
+
 		if(checkIfWon())
 		{
-			if (printMode == 1)
+			if (printMode)
 				System.out.println("Won");
 			return true;
 		}
 		else
 		{
-			if (printMode == 1)
+			if (printMode)
 				System.out.println("You lost.");
 			return false;
 		}
@@ -207,16 +215,16 @@ public class driver
 				if(c.getHidden())
 					return false;
 			}
-			
+
 		}
 		return true;
-//		
-//		
-//		if(foundation.get(0).size() == 13 && foundation.get(1).size() == 13 &&
-//				foundation.get(2).size() == 13 && foundation.get(3).size() == 13)
-//			return true;
-//		else
-//			return false;
+		//		
+		//		
+		//		if(foundation.get(0).size() == 13 && foundation.get(1).size() == 13 &&
+		//				foundation.get(2).size() == 13 && foundation.get(3).size() == 13)
+		//			return true;
+		//		else
+		//			return false;
 	}
 
 
@@ -232,8 +240,8 @@ public class driver
 	private static boolean play(Card c)													//********************************************************
 	{
 		//check if can be added to a foundation
-//		if(toFoundation(c))
-//			return true;
+		//		if(toFoundation(c))
+		//			return true;
 		//check if can be added to a stack
 		if(toTableau(c))
 			return true;
@@ -406,10 +414,10 @@ public class driver
 		for(int i = 0; i < tableau.size(); i++)
 		{
 
-//			if(toFoundation(c))																//******************************************************
-//			{
-//				return -2;
-//			}
+			//			if(toFoundation(c))																//******************************************************
+			//			{
+			//				return -2;
+			//			}
 			if(!tableau.get(i).isEmpty() && c.getValue() != 13)
 			{
 				temp = tableau.get(i).peek();
