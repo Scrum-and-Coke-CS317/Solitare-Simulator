@@ -109,7 +109,7 @@ public class driver
 			
 		}
 
-		for (int i = 0; i < 3; i++)	//times through deck
+		for (int i = 0; i < 10; i++)	//times through deck
 		{
 			for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
 			{
@@ -255,7 +255,7 @@ public class driver
 				return false;
 			}
 			else if (tableau.get(i).peek().getValue() - 1 == c.getValue()
-					&&  !tableau.get(i).peek().getColor().equals(c.getColor())) //I hope this works
+					&&  !(tableau.get(i).peek().getColor().equals(c.getColor()))) //I hope this works
 			{
 				tableau.get(i).add(c);
 				return true;
@@ -325,10 +325,10 @@ public class driver
 	private static boolean playTableauCards()
 	{
 		//for each of the 7 stacks in tableau
-		for(int i = tableau.size() - 1; i > 0; i--)
+		for(int i = tableau.size() - 1; i >= 0; i--)
 		{
 			//make sure it's not empty
-			if (! tableau.get(i).isEmpty())
+			if (! (tableau.get(i).isEmpty()))
 			{
 				Card c = tableau.get(i).peek();
 				int count = tableau.get(i).size() - 1;
@@ -353,7 +353,7 @@ public class driver
 
 				c = tableau.get(i).elementAt(count);
 				int playable = isPlayable(c);
-				if(playable > -1 && !(c.getValue() == 13 && count == 0))
+				if(playable > -1 && (!(c.getValue() == 13) || !(count == 0)))
 				{
 					Stack<Card> toMove = new Stack<Card>();
 					//remove cards from current place
