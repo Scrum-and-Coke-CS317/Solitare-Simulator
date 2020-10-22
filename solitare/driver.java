@@ -345,7 +345,7 @@ public class driver
 				}
 
 				//find highest card in stack that's face up
-				for(int faceUp = tableau.get(i).size() - 2; 0 < count; faceUp--)
+				for(int faceUp = tableau.get(i).size() - 2; 0 <= faceUp; faceUp--)
 				{
 					c = tableau.get(i).elementAt(faceUp);
 					if(c.getHidden() == true)
