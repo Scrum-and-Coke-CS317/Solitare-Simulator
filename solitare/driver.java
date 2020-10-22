@@ -132,10 +132,6 @@ public class driver
 				}
 			}
 
-			while(playTableauCards())
-			{
-				
-			}
 
 			if (printMode == 1)
 				System.out.println("-------------Resetting the deck");
@@ -224,7 +220,7 @@ public class driver
 			return true;
 		}
 		//check if can be added to a stack
-		if(toTableau(c))
+		else if(toTableau(c))
 		{
 			if(printMode == 1)
 				System.out.println(c.toString() + " moved to tableau");
@@ -247,7 +243,7 @@ public class driver
 	 */
 	private static boolean toTableau(Card c)
 	{
-		for(int i = 0; i < tableau.size(); i++)
+		for(int i = tableau.size() - 1; i >= 0 ; i--)
 		{ 			
 			if (tableau.get(i).isEmpty() && c.getValue() == 13)
 			{
