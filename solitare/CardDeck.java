@@ -86,17 +86,30 @@ public class CardDeck {
 		deck.add(new Card(5, "spade"));
 		deck.add(new Card(13, "club"));	
 		deck.add(new Card(7, "club"));
-		
-		for (String suit:suits)
-		{
-			if (!suit.equals("club") && !suit.equals("spade")) {
-				for (int i = 1 ; i > 13 ; i--) //adds all but the Aces, Spades, and Clubs
-				{
-					Card c = new Card(i, suit);
-					deck.add(c);
-				}
-			}
-		}
+		deck.add(new Card(2, "heart"));
+		deck.add(new Card(2, "diamond"));
+		deck.add(new Card(3, "heart"));
+		deck.add(new Card(3, "diamond"));
+		deck.add(new Card(4, "heart"));
+		deck.add(new Card(4, "diamond"));
+		deck.add(new Card(5, "heart"));
+		deck.add(new Card(5, "diamond"));
+		deck.add(new Card(6, "heart"));
+		deck.add(new Card(6, "diamond"));
+		deck.add(new Card(7, "heart"));
+		deck.add(new Card(7, "diamond"));
+		deck.add(new Card(8, "heart"));
+		deck.add(new Card(8, "diamond"));
+		deck.add(new Card(9, "heart"));
+		deck.add(new Card(9, "diamond"));
+		deck.add(new Card(10, "heart"));
+		deck.add(new Card(10, "diamond"));
+		deck.add(new Card(11, "heart"));
+		deck.add(new Card(11, "diamond"));
+		deck.add(new Card(12, "heart"));
+		deck.add(new Card(12, "diamond"));
+		deck.add(new Card(13, "heart"));
+		deck.add(new Card(13, "diamond"));
 		
 		for (Card card: deck) {
 			System.out.println("" + card.getValue() + card.getSuit());
