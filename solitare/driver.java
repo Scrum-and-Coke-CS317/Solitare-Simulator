@@ -23,7 +23,7 @@ public class driver
 
 	//set printMode to 1 to print diagnostic data/the deck/etc/ 
 	//if printMode is 0, it will only print "you win/you loose" info at the end of the game
-	static int printMode = 1;
+	static int printMode = 0;
 
 
 
@@ -353,13 +353,15 @@ public class driver
 
 				c = tableau.get(i).elementAt(count);
 				int playable = isPlayable(c);
-				if(playable > -1)
+				if(playable > -1 && !(c.getValue() == 13 && count == 0))
 				{
 					Stack<Card> toMove = new Stack<Card>();
 					//remove cards from current place
 					while(count < tableau.get(i).size())
 					{
+						tableau.get(i).peek().setHidden(false);
 						toMove.add(tableau.get(i).pop());
+						
 					}
 					if(!tableau.get(i).isEmpty())
 						tableau.get(i).peek().setHidden(false);
@@ -374,7 +376,7 @@ public class driver
 			}
 		}
 		//System.out.println("Got to line 368 even though it shouldn't have.");
-		print(tableau);
+		if(printMode == 1) print(tableau);
 		return false;
 	}
 
