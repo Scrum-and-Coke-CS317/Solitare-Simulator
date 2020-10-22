@@ -19,28 +19,38 @@ public class driver
 	private static int diamondCount = 1;
 	private static int heartCount = 1;
 	private static int spadeCount = 1;
+	private static int moves = 0;
+	private static int totalMoves = 0;
 
 	//set printMode to 1 to print diagnostic data/the deck/etc/ 
 	//if printMode is 0, it will only print "you win/you loose" info at the end of the game
 	static int printMode = 0;
+	static int printNumMovesPerGame = 0;
 
+	
+	
 
+	
 
 	public static void main(String[] args) throws Exception 
 	{
+		long startTime = System.nanoTime();
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Number of games: ");
 		int numGames = scan.nextInt();
 		scan.close();
 
 		int countWins = 0;
+		
 		for(int i = 0; i < numGames; i++)
 		{
 			if (printMode == 1)
 				System.out.println("***************************\n****** GAME NUMBER "+i+" ******\n***************************\n");
 			if (solitaire())
 				countWins++;
-
+			
+			if(printMode==1 || printNumMovesPerGame==1)
+				System.out.println("number of moves for game "+i+": "+moves);
 			cardDeck = new CardDeck();
 			tableau = new ArrayList<Stack<Card>>(7);
 			foundation = new ArrayList<Stack<Card>>(4);
@@ -50,10 +60,24 @@ public class driver
 			diamondCount = 1;        
 			heartCount = 1;          
 			spadeCount = 1;
+			moves = 0;
 
 		}
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime); 
+		double durationInSeconds = (double)duration / 1_000_000_000.0;
+		
+		int avgMoves = totalMoves/numGames;
+		double avgMovesPerSecond = totalMoves/durationInSeconds;
 
-		System.out.println(countWins + " wins");
+		System.out.println();
+		System.out.println("*** GAME ANALYSIS ***");
+		System.out.println(countWins + " wins of "+numGames+" total games");
+		System.out.println("win percent: "+((double)countWins/(double)numGames)*100+"%");
+		System.out.println("avg number of moves: "+avgMoves);
+		System.out.println("total execution time in seconds: "+durationInSeconds);
+		System.out.println("avg moves per second: "+avgMovesPerSecond);
+		
 	}
 
 
@@ -110,6 +134,8 @@ public class driver
 			for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
 			{
 				Card current = cardDeck.draw();
+				moves+=1;
+				totalMoves+=1;
 				if (play(current) == false)
 					wd.add(current);
 
