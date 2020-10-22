@@ -41,6 +41,81 @@ public class CardDeck {
 		}
 	}
 	
+	public void loseInitialize() {
+		deck.clear();
+		//add all the cards to an arrayList
+		for (String suit:suits)
+		{
+			for (int i = 1 ; i < 14 ; i++)
+			{
+				Card c = new Card(i, suit);
+				deck.add(c);
+				System.out.println("" + c.getValue() + c.getSuit());
+			}
+		}
+	}
+	
+	public void winInitialize() {
+		deck.clear();
+		//Hardcode time
+		deck.add(new Card(1, "club"));
+		deck.add(new Card(8, "club"));
+		deck.add(new Card(2, "club"));
+		deck.add(new Card(1, "spade"));
+		deck.add(new Card(9, "club"));
+		deck.add(new Card(3, "club"));
+		deck.add(new Card(6, "spade"));
+		deck.add(new Card(2, "spade"));
+		deck.add(new Card(10, "club"));
+		deck.add(new Card(4, "club"));
+		deck.add(new Card(10, "spade"));
+		deck.add(new Card(7, "spade"));
+		deck.add(new Card(3, "spade"));
+		deck.add(new Card(11, "club"));
+		deck.add(new Card(5, "club"));
+		deck.add(new Card(13, "spade"));
+		deck.add(new Card(11, "spade"));
+		deck.add(new Card(8, "spade"));
+		deck.add(new Card(4, "spade"));
+		deck.add(new Card(12, "club"));
+		deck.add(new Card(6, "club"));
+		deck.add(new Card(1, "diamond"));
+		deck.add(new Card(1, "heart"));
+		deck.add(new Card(12, "spade"));
+		deck.add(new Card(9, "spade"));
+		deck.add(new Card(5, "spade"));
+		deck.add(new Card(13, "club"));	
+		deck.add(new Card(7, "club"));
+		deck.add(new Card(2, "heart"));
+		deck.add(new Card(2, "diamond"));
+		deck.add(new Card(3, "heart"));
+		deck.add(new Card(3, "diamond"));
+		deck.add(new Card(4, "heart"));
+		deck.add(new Card(4, "diamond"));
+		deck.add(new Card(5, "heart"));
+		deck.add(new Card(5, "diamond"));
+		deck.add(new Card(6, "heart"));
+		deck.add(new Card(6, "diamond"));
+		deck.add(new Card(7, "heart"));
+		deck.add(new Card(7, "diamond"));
+		deck.add(new Card(8, "heart"));
+		deck.add(new Card(8, "diamond"));
+		deck.add(new Card(9, "heart"));
+		deck.add(new Card(9, "diamond"));
+		deck.add(new Card(10, "heart"));
+		deck.add(new Card(10, "diamond"));
+		deck.add(new Card(11, "heart"));
+		deck.add(new Card(11, "diamond"));
+		deck.add(new Card(12, "heart"));
+		deck.add(new Card(12, "diamond"));
+		deck.add(new Card(13, "heart"));
+		deck.add(new Card(13, "diamond"));
+		
+		for (Card card: deck) {
+			System.out.println("" + card.getValue() + card.getSuit());
+		}
+	}
+
 	/**
 	 * This draws a card from the top of the deck and removes it.
 	 * @return the card removed
