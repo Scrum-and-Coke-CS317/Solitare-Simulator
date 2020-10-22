@@ -23,7 +23,7 @@ public class driver
 
 	//set printMode to 1 to print diagnostic data/the deck/etc/ 
 	//if printMode is 0, it will only print "you win/you loose" info at the end of the game
-	static int printMode = 1;
+	static int printMode = 0;
 
 
 
@@ -338,7 +338,7 @@ public class driver
 			if (! tableau.get(i).isEmpty())
 			{
 				Card c = tableau.get(i).peek();
-				int count = tableau.get(i).size();
+				int count = tableau.get(i).size() - 1;
 				
 				//try to play to foundation
 				if(toFoundation(c))
@@ -348,17 +348,18 @@ public class driver
 				}
 
 				//find highest card in stack that's face up
-				for(int faceUp = tableau.get(i).size() - 1; 0 < count; faceUp--)
+				for(int faceUp = tableau.get(i).size() - 2; 0 < count; faceUp--)
 				{
-					c = tableau.get(i).elementAt(faceUp);
+					
 					if(c.getHidden() == true)
 					{
 						break;
 					}
+					c = tableau.get(i).elementAt(faceUp);
 					count--;
 				} 					
 
-				//c = tableau.get(i).elementAt(count);
+				c = tableau.get(i).elementAt(count);
 				int playable = isPlayable(c);
 				if(playable > -1)
 				{
@@ -378,12 +379,10 @@ public class driver
 					return true;
 				}
 
-				else
-					return false;
-
 			}
 		}
-		System.out.println("Got to line 368 even though it shouldn't have.");
+		//System.out.println("Got to line 368 even though it shouldn't have.");
+		print(tableau);
 		return false;
 	}
 
@@ -400,7 +399,7 @@ public class driver
 	private static int isPlayable(Card c)
 	{
 		Card temp;
-		for(int i = 0; i < tableau.size(); i++)
+		for(int i = tableau.size() - 1; i >= 0 ; i--)
 		{
 
 //			if(toFoundation(c))																//******************************************************
