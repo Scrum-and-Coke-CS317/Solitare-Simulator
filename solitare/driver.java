@@ -23,7 +23,7 @@ public class driver
 
 	//set printMode to 1 to print diagnostic data/the deck/etc/ 
 	//if printMode is 0, it will only print "you win/you loose" info at the end of the game
-	static int printMode = 0;
+	static int printMode = 1;
 
 
 
@@ -105,6 +105,9 @@ public class driver
 //			playTableauCards();
 		
 		while(playTableauCards())
+		{
+			
+		}
 
 		for (int i = 0; i < 3; i++)	//times through deck
 		{
@@ -133,6 +136,9 @@ public class driver
 			}
 
 			while(playTableauCards())
+			{
+				
+			}
 
 			if (printMode == 1)
 				System.out.println("-------------Resetting the deck");
@@ -211,12 +217,22 @@ public class driver
 	 */
 	private static boolean play(Card c)
 	{
+		if(printMode == 1)
+			System.out.println(c.toString());
 		//check if can be added to a foundation
 		if(toFoundation(c))
+		{
+			if(printMode == 1)
+				System.out.println(c.toString() + " moved to foundation");
 			return true;
+		}
 		//check if can be added to a stack
 		if(toTableau(c))
+		{
+			if(printMode == 1)
+				System.out.println(c.toString() + " moved to tableau");
 			return true;
+		}
 		else
 			return false;
 	}
@@ -328,7 +344,7 @@ public class driver
 				if(toFoundation(c))
 				{
 					tableau.get(i).pop();
-					return true; 
+					return true;
 				}
 
 				//find highest card in stack that's face up
