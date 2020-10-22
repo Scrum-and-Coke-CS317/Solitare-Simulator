@@ -19,6 +19,7 @@ public class driver
 	private static int diamondCount = 1;
 	private static int heartCount = 1;
 	private static int spadeCount = 1;
+	private static int numMoves = 0;
 
 	//set printMode to 1 to print diagnostic data/the deck/etc/ 
 	//if printMode is 0, it will only print "you win/you loose" info at the end of the game
@@ -50,7 +51,7 @@ public class driver
 			diamondCount = 1;        
 			heartCount = 1;          
 			spadeCount = 1;
-
+			numMoves = 0;
 		}
 
 		System.out.println(countWins + " wins");
@@ -99,14 +100,21 @@ public class driver
 			System.out.println();
 		}
 
-		//works better if you let it go a few times before adding cards
-		for (int i = 0; i < 32; i++)
-			playTableauCards();
+		//works better if you let it go a few times before adding cards -------------------
+//		for (int i = 0; i < 32; i++)
+//			playTableauCards();
+		
+		while(playTableauCards())
 
-		for (int i = 0; i < 3; i++)						//num of times ran
+		for (int i = 0; i < 3; i++)	//times through deck
 		{
 			for(int ii = 0; ii < cardDeck.getDeckSize(); ii++)
 			{
+				while(playTableauCards())
+				{
+					
+				}
+				
 				Card current = cardDeck.draw();
 				if (play(current) == false)
 					wd.add(current);
@@ -114,15 +122,17 @@ public class driver
 				if(wd.size() != 0)
 					if(play(wd.peek()))
 					{
+						numMoves++;
 						wd.pop();
 					}
 
-				for (int iii = 0; iii < 32; iii++)
-					playTableauCards();
+				while(playTableauCards())
+				{
+					
+				}
 			}
 
-			for (int i1 = 0; i1 < 2048; i1++)
-				playTableauCards();
+			while(playTableauCards())
 
 			if (printMode == 1)
 				System.out.println("-------------Resetting the deck");
@@ -181,16 +191,12 @@ public class driver
 				if(c.getHidden())
 					return false;
 			}
-			
 		}
-		return true;
-//		
-//		
-//		if(foundation.get(0).size() == 13 && foundation.get(1).size() == 13 &&
-//				foundation.get(2).size() == 13 && foundation.get(3).size() == 13)
-//			return true;
-//		else
-//			return false;
+		
+		if (cardDeck.getDeckSize() == 0  &&  wd.size() == 0)
+			return true;
+		else
+			return false;
 	}
 
 
@@ -203,11 +209,11 @@ public class driver
 	 * 
 	 * @param c card to play
 	 */
-	private static boolean play(Card c)													//********************************************************
+	private static boolean play(Card c)
 	{
 		//check if can be added to a foundation
-//		if(toFoundation(c))
-//			return true;
+		if(toFoundation(c))
+			return true;
 		//check if can be added to a stack
 		if(toTableau(c))
 			return true;
@@ -307,16 +313,23 @@ public class driver
 	 * this method is a terrible mess and I hate it
 	 * 
 	 */
-	private static void playTableauCards()
+	private static boolean playTableauCards()
 	{
 		//for each of the 7 stacks in tableau
-		for(int i = 0 ; i < tableau.size(); i++)
+		for(int i = tableau.size() - 1; i > 0; i--)
 		{
 			//make sure it's not empty
 			if (! tableau.get(i).isEmpty())
 			{
 				Card c = tableau.get(i).peek();
 				int count = tableau.get(i).size();
+				
+				//try to play to foundation
+				if(toFoundation(c))
+				{
+					tableau.get(i).pop();
+					return true; 
+				}
 
 				//find highest card in stack that's face up
 				for(int faceUp = tableau.get(i).size() - 1; 0 < count; faceUp--)
@@ -329,39 +342,33 @@ public class driver
 					count--;
 				} 					
 
-				//go back down the cards to try moving them
-				while(count < tableau.get(i).size())
+				//c = tableau.get(i).elementAt(count);
+				int playable = isPlayable(c);
+				if(playable > -1)
 				{
-					c = tableau.get(i).elementAt(count);
-					int playable = isPlayable(c);
-					if(playable > -1)
+					Stack<Card> toMove = new Stack<Card>();
+					//remove cards from current place
+					while(count < tableau.get(i).size())
 					{
-						Stack<Card> toMove = new Stack<Card>();
-						//remove cards from current place
-						while(count < tableau.get(i).size())
-						{
-							toMove.add(tableau.get(i).pop());
-						}
-						if(!tableau.get(i).isEmpty())
-							tableau.get(i).peek().setHidden(false);
-						//put in new place
-						while(!toMove.isEmpty())
-						{
-							tableau.get(playable).add(toMove.pop());
-						}
+						toMove.add(tableau.get(i).pop());
 					}
-					else if(playable == -2)
+					if(!tableau.get(i).isEmpty())
+						tableau.get(i).peek().setHidden(false);
+					//put in new place
+					while(!toMove.isEmpty())
 					{
-						tableau.get(i).pop();
-						if(!tableau.get(i).isEmpty())
-							tableau.get(i).peek().setHidden(false);
+						tableau.get(playable).add(toMove.pop());
 					}
-					else
-						count++;
+					return true;
 				}
+
+				else
+					return false;
 
 			}
 		}
+		System.out.println("Got to line 368 even though it shouldn't have.");
+		return false;
 	}
 
 
